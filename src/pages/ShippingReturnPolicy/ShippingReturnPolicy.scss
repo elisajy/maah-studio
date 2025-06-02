@@ -1,0 +1,330 @@
+// Variables
+$linen: #faf0e6;
+$secondary: #d5cfbf;
+$accent: #bc987e;
+$text-primary: #333;
+$text-secondary: #666;
+$shadow: rgba(188, 152, 126, 0.15);
+
+.shipping-container {
+  background-color: $linen;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  
+  @media (max-width: 768px) {
+    padding: 1rem 0.5rem;
+  }
+}
+
+.shipping-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.shipping-title {
+  color: $accent !important;
+  margin-bottom: 3rem !important;
+  font-weight: 600 !important;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, $secondary, $accent);
+    border-radius: 2px;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 1.5rem !important;
+    margin-bottom: 2rem !important;
+  }
+}
+
+.policy-card {
+  border: none !important;
+  box-shadow: 0 8px 32px $shadow !important;
+  border-radius: 16px !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px);
+  height: 100%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 48px rgba(188, 152, 126, 0.25) !important;
+  }
+  
+  .ant-card-body {
+    padding: 2rem !important;
+    
+    @media (max-width: 768px) {
+      padding: 1.5rem !important;
+    }
+  }
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  gap: 1rem;
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.card-icon {
+  font-size: 2rem;
+  color: $accent;
+  
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+  }
+}
+
+.card-title {
+  color: $accent !important;
+  margin: 0 !important;
+  font-weight: 600 !important;
+  
+  @media (max-width: 480px) {
+    font-size: 1.2rem !important;
+  }
+}
+
+.policy-content {
+  width: 100%;
+  text-align: left;
+}
+
+.policy-section {
+  width: 100%;
+  
+  &:not(:last-child) {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(213, 207, 191, 0.3);
+  }
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.section-icon {
+  color: $accent;
+  font-size: 1.1rem;
+}
+
+.section-title {
+  color: $accent !important;
+  font-size: 1rem !important;
+}
+
+.section-text {
+  color: $text-primary !important;
+  margin: 0 !important;
+  line-height: 1.6;
+  padding-left: 1.85rem;
+  
+  @media (max-width: 480px) {
+    padding-left: 0;
+  }
+}
+
+.shipping-rates {
+  padding-left: 1.85rem;
+  
+  @media (max-width: 480px) {
+    padding-left: 0;
+  }
+}
+
+.rate-item {
+  margin-bottom: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .ant-typography {
+    color: $text-primary !important;
+    
+    &[data-strong="true"] {
+      color: $accent !important;
+      min-width: 120px;
+      
+      @media (max-width: 767px) {
+        margin-bottom: 0.25rem;
+      }
+    }
+  }
+}
+
+.note {
+  font-style: italic;
+  margin-top: 1rem !important;
+  padding-left: 1.85rem;
+  
+  @media (max-width: 480px) {
+    padding-left: 0;
+  }
+}
+
+.intro-text {
+  color: $text-primary !important;
+  margin: 0 !important;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.return-conditions {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  padding-left: 1.85rem;
+  
+  @media (max-width: 480px) {
+    padding-left: 1rem;
+  }
+  
+  li {
+    position: relative;
+    padding: 0.5rem 0;
+    color: $text-primary;
+    line-height: 1.5;
+    
+    &::before {
+      content: '✓';
+      position: absolute;
+      left: -1.5rem;
+      color: $accent;
+      font-weight: bold;
+    }
+  }
+}
+
+.contact-info {
+  padding-left: 1.85rem;
+  
+  @media (max-width: 480px) {
+    padding-left: 0;
+  }
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+  
+  .contact-icon {
+    color: $accent;
+    font-size: 1rem;
+  }
+  
+  .ant-typography {
+    color: $text-primary !important;
+    margin: 0 !important;
+  }
+}
+
+.return-address {
+  padding-left: 1.85rem;
+  background: rgba(213, 207, 191, 0.1);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid $accent;
+  
+  @media (max-width: 480px) {
+    padding: 1rem;
+    margin-left: 0;
+  }
+  
+  .ant-typography {
+    color: $text-primary !important;
+    margin: 0 !important;
+    line-height: 1.4;
+    
+    &[data-strong="true"] {
+      color: $accent !important;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem !important;
+    }
+  }
+}
+
+.important-note {
+  background: rgba(188, 152, 126, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
+  display: block;
+  text-align: center;
+  border: 1px solid rgba(188, 152, 126, 0.3);
+  
+  &.ant-typography {
+    color: $accent !important;
+    margin: 0 !important;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 992px) {
+  .shipping-content {
+    padding: 0 1rem;
+  }
+  
+  .policy-card {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .shipping-container {
+    padding: 1rem 0.25rem;
+  }
+  
+  .card-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .policy-section {
+    &:not(:last-child) {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+  }
+  
+  .section-header {
+    margin-bottom: 0.75rem;
+  }
+}
+
+// Ant Design overrides
+.ant-card .ant-card-body {
+  padding: 2rem !important;
+}
+
+.ant-typography {
+  &.ant-typography-caption {
+    color: $text-secondary !important;
+  }
+}
+
+.ant-space-item {
+  width: 100%;
+}

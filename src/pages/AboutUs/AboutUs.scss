@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap');
+
+.about-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 1rem;
+  min-height: 100vh;
+  background-color: #f9f6f2;
+}
+
+.about-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 100%;
+}
+
+.about-image {
+  margin-bottom: 3rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  
+  .hero-image {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+  }
+  
+  @media (max-width: 768px) {
+    margin-bottom: 2rem;
+  }
+}
+
+.about-title {
+  font-family: 'Tenor Sans', sans-serif !important;
+  font-weight: 400 !important;
+  letter-spacing: 2px !important;
+  margin-bottom: 3rem !important;
+  color: #333 !important;
+}
+
+.about-text {
+  width: 100%;
+  
+  .ant-typography {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #555;
+    font-weight: 300;
+    margin-bottom: 0;
+  }
+}
+
+.about-divider {
+  width: 60%;
+  min-width: 200px;
+  margin: 3rem auto !important;
+  border-top: 1px solid #ddd !important;
+}
+
+.company-info {
+  width: 100%;
+  margin-bottom: 3rem;
+  
+  .info-title {
+    font-family: 'Tenor Sans', sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 1.2rem !important;
+    margin-bottom: 1.5rem !important;
+    letter-spacing: 1px !important;
+    color: #333 !important;
+  }
+  
+  .ant-typography {
+    margin-bottom: 0.5rem !important;
+    
+    strong {
+      font-weight: 500 !important;
+    }
+  }
+}
+
+.ma-symbol {
+  font-size: 2.5rem;
+  color: #a9a9a9;
+  opacity: 0.6;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .about-container {
+    padding: 3rem 1rem;
+  }
+  
+  .about-title {
+    font-size: 1.5rem !important;
+    margin-bottom: 2rem !important;
+  }
+  
+  .about-text {
+    .ant-typography {
+      font-size: 0.9rem;
+    }
+  }
+  
+  .about-divider {
+    margin: 2rem auto !important;
+  }
+  
+  .company-info {
+    margin-bottom: 2rem;
+    
+    .info-title {
+      font-size: 1.1rem !important;
+      margin-bottom: 1rem !important;
+    }
+    
+    .ant-typography {
+      font-size: 0.9rem;
+    }
+  }
+  
+  .ma-symbol {
+    font-size: 2rem;
+  }
+}

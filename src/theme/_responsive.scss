@@ -1,0 +1,178 @@
+@import 'variables';
+@import 'mixins';
+
+// Hide on specific breakpoints
+.hide-on-mobile {
+  @include mobile {
+    display: none !important;
+  }
+}
+
+.hide-on-tablet {
+  @include tablet {
+    display: none !important;
+  }
+}
+
+.hide-on-desktop {
+  @include desktop {
+    display: none !important;
+  }
+}
+
+// Show only on specific breakpoints
+.mobile-only {
+  display: none !important;
+  
+  @include mobile {
+    display: block !important;
+  }
+}
+
+.tablet-only {
+  display: none !important;
+  
+  @include tablet {
+    display: block !important;
+  }
+}
+
+.desktop-only {
+  display: none !important;
+  
+  @include desktop {
+    display: block !important;
+  }
+}
+
+// Responsive text alignment
+.text-center-mobile {
+  @include mobile {
+    text-align: center !important;
+  }
+}
+
+.text-center-tablet {
+  @include tablet {
+    text-align: center !important;
+  }
+}
+
+// Responsive spacing adjustments
+.px-mobile-0 {
+  @include mobile {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+.py-mobile-2 {
+  @include mobile {
+    padding-top: $spacing-sm !important;
+    padding-bottom: $spacing-sm !important;
+  }
+}
+
+.py-mobile-3 {
+  @include mobile {
+    padding-top: $spacing-md !important;
+    padding-bottom: $spacing-md !important;
+  }
+}
+
+.my-mobile-2 {
+  @include mobile {
+    margin-top: $spacing-sm !important;
+    margin-bottom: $spacing-sm !important;
+  }
+}
+
+.my-mobile-3 {
+  @include mobile {
+    margin-top: $spacing-md !important;
+    margin-bottom: $spacing-md !important;
+  }
+}
+
+// Responsive grid utility
+.grid {
+  display: grid;
+  gap: $spacing-md;
+  
+  &--2col {
+    grid-template-columns: repeat(2, 1fr);
+    
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  &--3col {
+    grid-template-columns: repeat(3, 1fr);
+    
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  &--4col {
+    grid-template-columns: repeat(4, 1fr);
+    
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// Helper for responsive images
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+// Responsive flex utilities
+.flex-column-mobile {
+  @include mobile {
+    flex-direction: column !important;
+  }
+}
+
+.flex-center-mobile {
+  @include mobile {
+    justify-content: center !important;
+    align-items: center !important;
+  }
+}
+
+// Responsive spacing classes
+.mt-mobile-0 {
+  @include mobile {
+    margin-top: 0 !important;
+  }
+}
+
+.mb-mobile-0 {
+  @include mobile {
+    margin-bottom: 0 !important;
+  }
+}
+
+.mt-mobile-3 {
+  @include mobile {
+    margin-top: $spacing-md !important;
+  }
+}
+
+.mb-mobile-3 {
+  @include mobile {
+    margin-bottom: $spacing-md !important;
+  }
+}

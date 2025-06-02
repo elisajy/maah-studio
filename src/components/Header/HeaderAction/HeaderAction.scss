@@ -1,0 +1,46 @@
+/* Assuming you already have these styles in your project */
+.header__actions {
+  display: flex;
+  align-items: center;
+}
+
+.header__action-btn {
+  position: relative;
+  background: none;
+  border: none;
+  padding: 8px;
+  margin-left: 5px;
+  cursor: pointer;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: #4a6cf7;
+  }
+}
+
+/* Add or modify the cart count style to match your notification styling */
+.header__cart-count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #ff3a30;
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 600;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  transform: translate(25%, -25%);
+}
+
+/* Make sure the cart container has appropriate z-index */
+.shopping-cart-container {
+  z-index: 1001; /* Higher than other elements in your header */
+}

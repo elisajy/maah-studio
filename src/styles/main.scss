@@ -1,0 +1,10 @@
+// Import base styles
+// @import '../theme/global';
+// @import '../theme/mixins';
+// @import '../theme/variables';
+@use "../theme/global";
+@use "../theme/mixins";
+@use "../theme/variables";
+
+// Import component styles
+// These are imported automatically by the components themselves

@@ -1,0 +1,88 @@
+@use "../../theme/variables" as var;
+@use "../../theme/mixins" as mix;
+
+.footer {
+  background-color: var.$background-primary;
+  
+  &__social {
+    padding: var.$spacing-xxl 0;
+    text-align: center;
+  }
+  
+  &__instagram {
+    font-size: var.$font-size-sm;
+    letter-spacing: 1px;
+  }
+  
+  &__links {
+    background-color: var.$background-secondary;
+    padding: var.$spacing-xl 0;
+    
+    @include mix.mobile {
+      padding: var.$spacing-lg 0;
+    }
+  }
+  
+  &__links-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var.$spacing-md;
+    
+    @include mix.mobile {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  &__links-column {
+    text-align: center;
+  }
+  
+  &__link {
+    font-size: var.$font-size-xs;
+    text-decoration: none;
+    color: var.$text-primary;
+    letter-spacing: 1px;
+    transition: color var.$transition-fast;
+    
+    &:hover {
+      color: var.$accent-color;
+    }
+  }
+  
+  &__bottom {
+    padding: var.$spacing-md 0;
+    border-top: 1px solid var.$border-color;
+    
+    .container {
+      @include mix.flex(row, space-between, center);
+      
+      @include mix.mobile {
+        flex-direction: column;
+        gap: var.$spacing-md;
+      }
+    }
+  }
+  
+  &__copyright {
+    font-size: var.$font-size-xs;
+    color: var.$text-secondary;
+    
+    @include mix.mobile {
+      text-align: center;
+    }
+  }
+  
+  &__social-icons {
+    @include mix.flex(row, center, center);
+    gap: var.$spacing-md;
+  }
+  
+  &__social-icon {
+    color: var.$text-primary;
+    transition: color var.$transition-fast;
+    
+    &:hover {
+      color: var.$accent-color;
+    }
+  }
+}

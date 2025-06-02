@@ -1,0 +1,19 @@
+@use "../../theme/variables" as var;
+@use "../../theme/mixins" as mix;
+
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding-top: 150px; // Adjust based on header height
+  padding-bottom: var.$spacing-xl;
+  
+  @include mix.mobile {
+    padding-top: 60px; // Smaller header height on mobile
+  }
+}
