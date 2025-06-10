@@ -2,6 +2,7 @@ import React from 'react';
 import { Card } from 'antd';
 import styled from 'styled-components';
 import { Product } from '../../../types/product';
+import { useNavigate } from 'react-router-dom';
 
 interface ProductCardProps {
   product: Product;
@@ -15,12 +16,12 @@ const StyledCard = styled(Card)`
   box-shadow: none;
   
   .ant-card-body {
-    padding: 12px 0;
+    padding: 14px 20px !important;
   }
   
   .product-image {
     width: 100%;
-    height: 240px;
+    height: 100%;
     object-fit: cover;
     transition: opacity 0.3s;
   }
@@ -53,20 +54,27 @@ const SoldOutBadge = styled.div`
 `;
 
 const ProductCardComponent: React.FC<ProductCardProps> = ({ product }) => {
+  const navigate = useNavigate();
+
+  const viewProductDetails = (product: any) => {
+    console.log('product', product);
+    navigate(`/product-details/${product.id}`);
+  };
+
   return (
-    <StyledCard 
+    <StyledCard
+      onClick={() => { viewProductDetails(product) }}
       cover={
         <div style={{ position: 'relative' }}>
-          <img 
-            src={product.imageUrl} 
-            alt={product.name} 
+          <img
+            src={product.imageUrl}
+            alt={product.name}
             className="product-image"
           />
           {product.soldOut && <SoldOutBadge>SOLD OUT</SoldOutBadge>}
         </div>
       }
       hoverable
-      bodyStyle={{ paddingTop: 12, paddingBottom: 12 }}
     >
       <div className="product-name">{product.name}</div>
       <div className="product-price">RM {product.price.toFixed(2)}</div>

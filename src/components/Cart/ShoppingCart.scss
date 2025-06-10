@@ -1,14 +1,42 @@
 @use "sass:color";
 
-// Variables
-$drawer-width: 400px;
-$primary-color: #4a6cf7;
-$secondary-color: #e5e7eb;
-$text-color: #333;
-$border-color: #e5e7eb;
+// Updated Theme Variables - Linen Theme
+$drawer-width: 380px;
+$primary-color: #bc987e;
+$secondary-color: #d5cfbf;
+$background-linen: #faf0e6;
+$text-color: #502d15;
+$text-secondary: #6b5b4f;
+$border-color: #d5cfbf;
 $white: #fff;
-$shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+$shadow: 0 4px 20px rgba(80, 45, 21, 0.15);
 $transition: all 0.3s ease;
+
+// Custom scrollbar styles
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(213, 207, 191, 0.1);
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $secondary-color;
+    border-radius: 3px;
+    transition: $transition;
+
+    &:hover {
+      background: $primary-color;
+    }
+  }
+
+  // Firefox scrollbar
+  scrollbar-width: thin;
+  scrollbar-color: $secondary-color rgba(213, 207, 191, 0.1);
+}
 
 .shopping-cart-container {
   position: fixed;
@@ -20,10 +48,13 @@ $transition: all 0.3s ease;
   z-index: 1000;
   visibility: hidden;
   pointer-events: none;
+  opacity: 0; // Add this to ensure complete hiding
+  transition: opacity 0.3s ease; // Add transition for smooth appearance
 
   &.open {
     visibility: visible;
     pointer-events: all;
+    opacity: 1; // Make fully visible when open
 
     .shopping-cart-overlay {
       opacity: 1;
@@ -46,37 +77,39 @@ $transition: all 0.3s ease;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(56, 34, 20, 0.4);
   opacity: 0;
   transition: $transition;
 }
 
 .shopping-cart-drawer {
   position: fixed;
-  background-color: $white;
+  background: linear-gradient(to bottom, $white 0%, $background-linen 100%);
   box-shadow: $shadow;
   display: flex;
   flex-direction: column;
   transition: $transition;
-  overflow-y: auto;
-  
+
+  // Remove overflow-y from here - let individual sections handle their own overflow
+
   // Mobile: drawer from top
   @media (max-width: 767px) {
     top: 0;
     left: 0;
     width: 100%;
-    height: 80%;  // Not full height to allow seeing there's content underneath
+    height: 85vh; // Use viewport height for better mobile experience
     transform: translateY(-100%);
-    border-radius: 0 0 12px 12px;
+    border-radius: 0 0 16px 16px;
+    max-height: 85vh;
   }
-  
+
   // Desktop: drawer from right
   @media (min-width: 768px) {
     top: 0;
     right: 0;
     width: $drawer-width;
     max-width: 90%;
-    height: 100%;
+    height: 100vh;
     transform: translateX(100%);
   }
 }
@@ -85,28 +118,36 @@ $transition: all 0.3s ease;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  border-bottom: 1px solid $border-color;
-  
+  padding: 24px 20px 20px;
+  border-bottom: 2px solid $border-color;
+  background-color: $white;
+  // Make header sticky but allow it to be part of the scroll when needed
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0; // Prevent header from shrinking
+
   h2 {
     margin: 0;
     font-size: 1.5rem;
     font-weight: 600;
+    color: $text-color;
   }
-  
+
   .close-button {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 5px;
+    padding: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $text-color;
+    color: $text-secondary;
     transition: $transition;
-    
+    border-radius: 50%;
+
     &:hover {
       color: $primary-color;
+      background-color: rgba(213, 207, 191, 0.2);
     }
   }
 }
@@ -115,6 +156,13 @@ $transition: all 0.3s ease;
   flex: 1;
   padding: 20px;
   overflow-y: auto;
+  @include custom-scrollbar;
+
+  // Add some padding at the bottom to ensure last item is visible
+  padding-bottom: 120px; // Space for fixed footer
+
+  // Smooth scroll behavior
+  scroll-behavior: smooth;
 }
 
 .empty-cart {
@@ -122,172 +170,427 @@ $transition: all 0.3s ease;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px 0;
+  padding: 60px 20px;
   text-align: center;
-  
+  height: 100%;
+  min-height: 300px;
+
   svg {
-    margin-bottom: 15px;
-    color: $text-color;
-    opacity: 0.6;
-  }
-  
-  p {
     margin-bottom: 20px;
+    color: $text-secondary;
+    opacity: 0.7;
+  }
+
+  p {
+    margin-bottom: 24px;
     font-size: 1.1rem;
+    color: $text-secondary;
+  }
+
+  button {
+    background: linear-gradient(
+      135deg,
+      $primary-color,
+      color.adjust($primary-color, $lightness: -10%)
+    );
+    color: $white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: $transition;
+    box-shadow: 0 2px 8px rgba(188, 152, 126, 0.3);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(188, 152, 126, 0.4);
+    }
   }
 }
 
 .cart-item {
   display: flex;
-  align-items: center;
-  padding: 15px 0;
-  border-bottom: 1px solid $border-color;
-  
+  align-items: flex-start;
+  padding: 16px 12px;
+  border-bottom: 1px solid rgba(213, 207, 191, 0.5);
+  background-color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 12px;
+  border-radius: 12px;
+  transition: $transition;
+  gap: 12px;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(80, 45, 21, 0.1);
+  }
+
   &:last-child {
     border-bottom: none;
   }
-  
+
   .item-image {
-    width: 80px;
-    height: 80px;
-    margin-right: 15px;
-    
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 4px;
+      border-radius: 8px;
+      border: 2px solid $border-color;
     }
   }
-  
+
   .item-details {
     flex: 1;
-    
+    min-width: 0;
+    margin-right: 8px;
+
     h3 {
-      margin: 0 0 5px;
-      font-size: 1rem;
-      font-weight: 500;
+      margin: 0 0 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: $text-color;
+      line-height: 1.3;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      hyphens: auto;
     }
-    
+
     .item-price {
       margin: 0;
       font-weight: 600;
       color: $primary-color;
+      font-size: 1rem;
     }
   }
-  
+
   .item-controls {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
-    
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    min-width: 80px;
+
     .quantity-control {
       display: flex;
       align-items: center;
-      
+      background-color: $background-linen;
+      border-radius: 6px;
+      padding: 1px;
+
       button {
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: $secondary-color;
-        border: none;
+        background-color: $white;
+        border: 1px solid $border-color;
         border-radius: 4px;
         cursor: pointer;
         transition: $transition;
-        
+        font-weight: 600;
+        color: $text-color;
+        font-size: 0.8rem;
+
         &:hover {
-          background-color: color.adjust($secondary-color, $lightness: -10%);;
+          background-color: $primary-color;
+          color: $white;
+          border-color: $primary-color;
         }
       }
-      
+
       span {
-        padding: 0 10px;
-        min-width: 30px;
+        padding: 0 8px;
+        min-width: 24px;
         text-align: center;
+        font-weight: 600;
+        color: $text-color;
+        font-size: 0.9rem;
       }
     }
-    
+
     .remove-item {
       background: none;
       border: none;
-      padding: 5px;
+      padding: 6px;
       cursor: pointer;
-      color: #888;
+      color: $text-secondary;
       transition: $transition;
-      
+      border-radius: 50%;
+
       &:hover {
-        color: #ff3a30;
+        color: #dc3545;
+        background-color: rgba(220, 53, 69, 0.1);
+      }
+
+      svg {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+
+  // Desktop specific adjustments
+  @media (min-width: 768px) {
+    padding: 14px 16px;
+    gap: 14px;
+
+    .item-image {
+      width: 70px;
+      height: 70px;
+    }
+
+    .item-details {
+      h3 {
+        font-size: 0.8rem;
+      }
+
+      .item-price {
+        font-size: 1rem;
+      }
+    }
+
+    .item-controls {
+      min-width: 90px;
+
+      .quantity-control {
+        button {
+          width: 28px;
+          height: 28px;
+          font-size: 0.9rem;
+        }
+
+        span {
+          padding: 0 12px;
+          min-width: 30px;
+          font-size: 1rem;
+        }
+      }
+
+      .remove-item svg {
+        width: 16px;
+        height: 16px;
       }
     }
   }
 }
 
 .cart-summary {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid $border-color;
-  
-  .subtotal, .shipping, .total {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(
+    to top,
+    $white 0%,
+    rgba(255, 255, 255, 0.98) 90%,
+    rgba(255, 255, 255, 0.8) 100%
+  );
+  padding: 20px 16px 16px;
+  border-top: 2px solid $border-color;
+  backdrop-filter: blur(10px);
+  flex-shrink: 0; // Prevent footer from shrinking
+
+  .subtotal {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
-    
+    margin-bottom: 13px;
+    font-size: 1.05rem;
+
     span:first-child {
       color: $text-color;
-      font-weight: 400;
+      font-weight: 500;
     }
-    
+
     span:last-child {
-      font-weight: 600;
-    }
-  }
-  
-  .total {
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid $border-color;
-    font-size: 1.2rem;
-    
-    span {
-      font-weight: 600;
+      font-weight: 700;
+      color: $primary-color;
     }
   }
 }
 
 .cart-actions {
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  
+  gap: 12px;
+
   button {
     width: 100%;
-    padding: 12px;
+    padding: 12px 18px;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
     transition: $transition;
+    font-size: 0.85rem;
   }
-  
+
   .checkout-button {
-    background-color: $primary-color;
+    background: linear-gradient(
+      135deg,
+      $primary-color,
+      color.adjust($primary-color, $lightness: -10%)
+    );
     color: $white;
-    
+    box-shadow: 0 3px 12px rgba(188, 152, 126, 0.4);
+
     &:hover {
-      background-color: color.adjust($secondary-color, $lightness: -10%);;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 16px rgba(188, 152, 126, 0.5);
     }
   }
-  
+
   .continue-shopping {
     background-color: $secondary-color;
     color: $text-color;
-    
+    border: 1px solid $border-color;
+
     &:hover {
-      background-color: color.adjust($secondary-color, $lightness: -10%);;
+      background-color: color.adjust($secondary-color, $lightness: -5%);
+      border-color: $primary-color;
     }
+  }
+}
+
+.cart-title {
+  text-align: center;
+  color: $text-color !important;
+  margin-bottom: 0 !important;
+  font-weight: 600 !important;
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, $secondary-color, $primary-color);
+    border-radius: 2px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+  }
+}
+
+// Mobile optimizations
+@media (max-width: 767px) {
+  .shopping-cart-drawer {
+    width: 100%;
+    height: 90vh;
+  }
+
+  .cart-items {
+    padding: 16px 12px 140px;
+  }
+
+  .cart-item {
+    padding: 12px 8px;
+    gap: 8px;
+
+    .item-image {
+      width: 50px;
+      height: 50px;
+    }
+
+    .item-details {
+      margin-right: 4px;
+
+      h3 {
+        font-size: 0.8rem;
+        line-height: 1.2;
+      }
+
+      .item-price {
+        font-size: 1rem;
+      }
+    }
+
+    .item-controls {
+      min-width: 70px;
+      gap: 6px;
+
+      .quantity-control {
+        button {
+          width: 22px;
+          height: 22px;
+          font-size: 0.75rem;
+        }
+
+        span {
+          padding: 0 6px;
+          min-width: 20px;
+          font-size: 0.85rem;
+        }
+      }
+
+      .remove-item {
+        padding: 4px;
+
+        svg {
+          width: 12px;
+          height: 12px;
+        }
+      }
+    }
+  }
+
+  .cart-summary {
+    padding: 16px 12px 12px;
+
+    .subtotal {
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+    }
+  }
+
+  .cart-actions {
+    gap: 10px;
+
+    button {
+      padding: 12px 16px;
+      font-size: 0.95rem;
+    }
+  }
+}
+
+// Animation improvements
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.shopping-cart-drawer.open {
+  @media (min-width: 768px) {
+    animation: slideInFromRight 0.3s ease-out;
+  }
+
+  @media (max-width: 767px) {
+    animation: slideInFromTop 0.3s ease-out;
   }
 }

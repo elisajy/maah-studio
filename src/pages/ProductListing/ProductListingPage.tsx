@@ -19,6 +19,7 @@ import styled from 'styled-components';
 import ProductCard from '../../components/Product/ProductCard/ProductCard';
 import { fetchProducts, fetchFilterOptions } from '../../services/ProductService';
 import { Product, FilterState } from '../../types/product';
+import './ProductListingPage.scss';
 
 // Styled Components
 const FilterContainer = styled.div`

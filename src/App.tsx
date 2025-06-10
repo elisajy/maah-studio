@@ -8,6 +8,7 @@ import AboutUs from './pages/AboutUs/AboutUs';
 import Guide from './pages/Guide/Guide';
 import ShippingReturn from './pages/ShippingReturnPolicy/ShippingReturnPolicy';
 import FAQ from './pages/FAQ/FAQ';
+import ProductDetails from './pages/ProductDetails/ProductDetails';
 
 // Mock pages for demonstration (you can create these yourself)
 // const New = () => <div className="container py-5"><h1>New Arrivals</h1></div>;
@@ -48,6 +49,8 @@ const App: React.FC = () => {
           <Route path="/points" element={<Points />} />
           <Route path="/account" element={<Account />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/product-details/:id" element={<ProductDetails />} />
+          
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>

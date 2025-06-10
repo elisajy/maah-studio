@@ -2,18 +2,18 @@ import { Product, ProductsResponse, FilterOptions } from '../types/product';
 
 // Mock Products Data
 const mockProducts: Product[] = [
-  { id: '1', name: 'Wide Leg Pants in Dark Denim', price: 119, imageUrl: '/images/dark-denim-pants.jpg', category: 'Pants', color: 'Dark Blue', size: 'M' },
-  { id: '2', name: 'Wide Leg Pants in Light Denim', price: 119, imageUrl: '/images/light-denim-pants.jpg', category: 'Pants', color: 'Light Blue', size: 'M' },
-  { id: '3', name: 'Denim Button Vest', price: 119, imageUrl: '/images/denim-vest.jpg', category: 'Tops', color: 'Dark Blue', size: 'L' },
-  { id: '4', name: 'Ramie Pleating Blouse', price: 139, imageUrl: '/images/ramie-blouse.jpg', category: 'Tops', color: 'Beige', size: 'M', soldOut: true },
-  { id: '5', name: 'Splice Boy Shorts in Light Khaki', price: 89, imageUrl: '/images/light-khaki-shorts.jpg', category: 'Shorts', color: 'Khaki', size: 'S' },
-  { id: '6', name: 'Splice Boy Shorts in Pale Sage', price: 89, imageUrl: '/images/pale-sage-shorts.jpg', category: 'Shorts', color: 'Sage', size: 'S' },
-  { id: '7', name: 'Oversized Shirt Jacket', price: 159, imageUrl: '/images/shirt-jacket.jpg', category: 'Outerwear', color: 'White', size: 'L' },
-  { id: '8', name: 'Button Down Shirt', price: 129, imageUrl: '/images/button-down.jpg', category: 'Tops', color: 'White', size: 'M' },
-  { id: '9', name: 'Black Overall Dress', price: 149, imageUrl: '/images/overall-dress.jpg', category: 'Dresses', color: 'Black', size: 'M', soldOut: true },
-  { id: '10', name: 'White Summer Dress', price: 159, imageUrl: '/images/summer-dress.jpg', category: 'Dresses', color: 'White', size: 'S' },
-  { id: '11', name: 'Linen Wide Leg Pants', price: 129, imageUrl: '/images/linen-pants.jpg', category: 'Pants', color: 'White', size: 'M' },
-  { id: '12', name: 'Oversized Linen Shirt', price: 119, imageUrl: '/images/linen-shirt.jpg', category: 'Tops', color: 'White', size: 'L' },
+  { id: '1', name: 'Wide Leg Pants in Dark Denim', price: 119, imageUrl: 'src/images/apparel/IMG_7251.jpg', category: 'Pants', color: 'Dark Blue', size: 'M' },
+  { id: '2', name: 'Wide Leg Pants in Light Denim', price: 119, imageUrl: 'src/images/apparel/IMG_7282.jpg', category: 'Pants', color: 'Light Blue', size: 'M' },
+  { id: '3', name: 'Denim Button Vest', price: 119, imageUrl: 'src/images/apparel/IMG_7335.jpg', category: 'Tops', color: 'Dark Blue', size: 'L' },
+  { id: '4', name: 'Ramie Pleating Blouse', price: 139, imageUrl: 'src/images/apparel/IMG_7391.jpg', category: 'Tops', color: 'Beige', size: 'M', soldOut: true },
+  { id: '5', name: 'Splice Boy Shorts in Light Khaki', price: 89, imageUrl: 'src/images/apparel/IMG_7625.jpg', category: 'Shorts', color: 'Khaki', size: 'S' },
+  { id: '6', name: 'Splice Boy Shorts in Pale Sage', price: 89, imageUrl: 'src/images/apparel/IMG_7734.jpg', category: 'Shorts', color: 'Sage', size: 'S' },
+  { id: '7', name: 'Oversized Shirt Jacket', price: 159, imageUrl: 'src/images/apparel/IMG_7830.jpg', category: 'Outerwear', color: 'White', size: 'L' },
+  { id: '8', name: 'Button Down Shirt', price: 129, imageUrl: 'src/images/apparel/IMG_8096.jpg', category: 'Tops', color: 'White', size: 'M' },
+  { id: '9', name: 'Black Overall Dress', price: 149, imageUrl: 'src/images/apparel/IMG_8190.jpg', category: 'Dresses', color: 'Black', size: 'M', soldOut: true },
+  { id: '10', name: 'White Summer Dress', price: 159, imageUrl: 'src/images/apparel/IMG_8376_1.jpg', category: 'Dresses', color: 'White', size: 'S' },
+  { id: '11', name: 'Linen Wide Leg Pants', price: 129, imageUrl: 'src/images/apparel/IMG_7251.jpg', category: 'Pants', color: 'White', size: 'M' },
+  { id: '12', name: 'Oversized Linen Shirt', price: 119, imageUrl: 'src/images/apparel/IMG_7282.jpg', category: 'Tops', color: 'White', size: 'L' },
 ];
 
 // Mock Filter Options
