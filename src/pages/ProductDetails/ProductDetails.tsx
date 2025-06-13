@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Facebook, Twitter, Share, MessageCircle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Facebook, Twitter, Share, MessageCircle, X } from 'lucide-react';
 
 interface ProductImage {
     id: number;
@@ -19,36 +19,122 @@ interface SizeOption {
     value: string;
 }
 
-const ProductPage: React.FC = () => {
+interface ProductVariant {
+    id: string;
+    name: string;
+    price: string;
+    description: string;
+    images: ProductImage[];
+    colorOptions: ColorOption[];
+    sizeOptions: SizeOption[];
+}
+
+const ProductDetails: React.FC = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+    const [selectedVariant, setSelectedVariant] = useState<string>('scream-tee');
     const [selectedColor, setSelectedColor] = useState<string>('khaki');
     const [selectedSize, setSelectedSize] = useState<string>('freesize');
     const [quantity, setQuantity] = useState<number>(1);
+    const [isPreviewOpen, setIsPreviewOpen] = useState<boolean>(false);
+    const [previewImageIndex, setPreviewImageIndex] = useState<number>(0);
 
-    const images: ProductImage[] = [
-        { id: 1, url: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=600&fit=crop', alt: 'Scream Tee Front View' },
-        { id: 2, url: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500&h=600&fit=crop', alt: 'Scream Tee Back View' },
-        { id: 3, url: 'https://images.unsplash.com/photo-1583743814966-8936f37f4152?w=500&h=600&fit=crop', alt: 'Scream Tee Detail View' },
-        { id: 4, url: 'https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=500&h=600&fit=crop', alt: 'Scream Tee Lifestyle' }
+    // Product variants data
+    const productVariants: ProductVariant[] = [
+        {
+            id: 'scream-tee',
+            name: 'Scream Tee',
+            price: 'RM 189.00',
+            description: 'A premium quality cotton t-shirt featuring a minimalist design with subtle branding. Made from 100% organic cotton for ultimate comfort and durability. Perfect for casual wear or layering. The classic fit ensures a comfortable wearing experience throughout the day.',
+            images: [
+                { id: 1, url: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=600&fit=crop', alt: 'Scream Tee Front View' },
+                { id: 2, url: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500&h=600&fit=crop', alt: 'Scream Tee Back View' },
+                { id: 4, url: 'https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=500&h=600&fit=crop', alt: 'Scream Tee Lifestyle' }
+            ],
+            colorOptions: [
+                { id: 'khaki', name: 'Khaki', value: '#d5cfbf' },
+                { id: 'black', name: 'Black', value: '#333333' }
+            ],
+            sizeOptions: [
+                { id: 'freesize', name: 'Free Size', value: 'freesize' }
+            ]
+        },
+        {
+            id: 'vintage-hoodie',
+            name: 'Vintage Hoodie',
+            price: 'RM 299.00',
+            description: 'Cozy vintage-inspired hoodie with a relaxed fit. Made from premium cotton blend fleece for maximum warmth and comfort. Features a spacious kangaroo pocket and adjustable drawstring hood. Perfect for cooler weather and casual outings.',
+            images: [
+                { id: 5, url: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500&h=600&fit=crop', alt: 'Vintage Hoodie Front' },
+                { id: 6, url: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=500&h=600&fit=crop', alt: 'Vintage Hoodie Back' },
+                { id: 7, url: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500&h=600&fit=crop', alt: 'Vintage Hoodie Detail' }
+            ],
+            colorOptions: [
+                { id: 'grey', name: 'Grey', value: '#808080' },
+                { id: 'navy', name: 'Navy', value: '#1e3a8a' },
+                { id: 'burgundy', name: 'Burgundy', value: '#991b1b' }
+            ],
+            sizeOptions: [
+                { id: 's', name: 'S', value: 's' },
+                { id: 'm', name: 'M', value: 'm' },
+                { id: 'l', name: 'L', value: 'l' },
+                { id: 'xl', name: 'XL', value: 'xl' }
+            ]
+        },
+        {
+            id: 'denim-jacket',
+            name: 'Classic Denim Jacket',
+            price: 'RM 399.00',
+            description: 'Timeless denim jacket crafted from high-quality cotton denim. Features classic button closure, chest pockets, and a versatile fit that works with any outfit. The perfect layering piece for transitional seasons.',
+            images: [
+                { id: 8, url: 'https://images.unsplash.com/photo-1544966503-7cc5ac882d5d?w=500&h=600&fit=crop', alt: 'Denim Jacket Front' },
+                { id: 9, url: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=600&fit=crop', alt: 'Denim Jacket Style' },
+                { id: 10, url: 'https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=500&h=600&fit=crop', alt: 'Denim Jacket Detail' }
+            ],
+            colorOptions: [
+                { id: 'light-blue', name: 'Light Blue', value: '#60a5fa' },
+                { id: 'dark-blue', name: 'Dark Blue', value: '#1e40af' }
+            ],
+            sizeOptions: [
+                { id: 's', name: 'S', value: 's' },
+                { id: 'm', name: 'M', value: 'm' },
+                { id: 'l', name: 'L', value: 'l' }
+            ]
+        }
     ];
 
-    const colorOptions: ColorOption[] = [
-        { id: 'khaki', name: 'Khaki', value: '#d5cfbf' },
-        { id: 'black', name: 'Black', value: '#333333' }
-    ];
-
-    const sizeOptions: SizeOption[] = [
-        { id: 'freesize', name: 'Free Size', value: 'freesize' },
-    ];
+    const currentVariant = productVariants.find(v => v.id === selectedVariant) || productVariants[0];
+    const currentImages = currentVariant.images;
 
     const handleImageChange = (direction: number): void => {
         setCurrentImageIndex(prev =>
-            (prev + direction + images.length) % images.length
+            (prev + direction + currentImages.length) % currentImages.length
         );
     };
 
     const handleThumbnailClick = (index: number): void => {
         setCurrentImageIndex(index);
+    };
+
+    const handleImagePreview = (index: number): void => {
+        setPreviewImageIndex(index);
+        setIsPreviewOpen(true);
+    };
+
+    const handlePreviewNavigation = (direction: number): void => {
+        setPreviewImageIndex(prev =>
+            (prev + direction + currentImages.length) % currentImages.length
+        );
+    };
+
+    const handleVariantSelect = (variantId: string): void => {
+        const newVariant = productVariants.find(v => v.id === variantId);
+        if (newVariant) {
+            setSelectedVariant(variantId);
+            setCurrentImageIndex(0);
+            // Reset selections to first available options
+            setSelectedColor(newVariant.colorOptions[0]?.id || '');
+            setSelectedSize(newVariant.sizeOptions[0]?.id || '');
+        }
     };
 
     const handleColorSelect = (colorId: string): void => {
@@ -66,11 +152,11 @@ const ProductPage: React.FC = () => {
     };
 
     const handleBuyNow = (): void => {
-        console.log('Buy Now clicked', { color: selectedColor, quantity });
+        console.log('Buy Now clicked', { variant: selectedVariant, color: selectedColor, size: selectedSize, quantity });
     };
 
     const handleAddToCart = (): void => {
-        console.log('Add to Cart clicked', { color: selectedColor, quantity });
+        console.log('Add to Cart clicked', { variant: selectedVariant, color: selectedColor, size: selectedSize, quantity });
     };
 
     // Styles
@@ -177,6 +263,69 @@ const ProductPage: React.FC = () => {
             border: '2px solid transparent'
         } as React.CSSProperties,
 
+        // Preview Modal Styles
+        previewOverlay: {
+            position: 'fixed' as const,
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0,0,0,0.9)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000
+        },
+
+        previewContainer: {
+            position: 'relative' as const,
+            maxWidth: '90vw',
+            maxHeight: '90vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+        },
+
+        previewImage: {
+            maxWidth: '100%',
+            maxHeight: '100%',
+            objectFit: 'contain' as const,
+            borderRadius: '8px'
+        },
+
+        previewCloseButton: {
+            position: 'absolute' as const,
+            top: '20px',
+            right: '20px',
+            width: '40px',
+            height: '40px',
+            borderRadius: '50%',
+            background: 'rgba(255,255,255,0.9)',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1001
+        },
+
+        previewNavButton: {
+            position: 'absolute' as const,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            width: '50px',
+            height: '50px',
+            borderRadius: '50%',
+            background: 'rgba(255,255,255,0.9)',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1001,
+            transition: 'all 0.3s ease'
+        },
+
         detailsSection: {
             padding: '40px',
             display: 'flex',
@@ -188,7 +337,8 @@ const ProductPage: React.FC = () => {
             fontSize: '2rem',
             fontWeight: 600,
             color: '#333',
-            margin: '0 0 10px 0'
+            margin: '0 0 10px 0',
+            fontFamily: 'serif'
         } as React.CSSProperties,
 
         productPrice: {
@@ -208,43 +358,81 @@ const ProductPage: React.FC = () => {
             color: '#333',
             marginBottom: '15px',
             textTransform: 'uppercase' as const,
-            letterSpacing: '0.5px'
+            letterSpacing: '0.5px',
+            fontFamily: 'serif'
         },
 
         description: {
             color: '#666',
             lineHeight: 1.6,
             fontSize: '1rem',
-            margin: 0
+            margin: 0,
+            textAlign: 'justify' as const
+        },
+
+        variantOptions: {
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+            gap: '10px'
+        } as React.CSSProperties,
+
+        variantOption: {
+            padding: '12px 16px',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease',
+            textAlign: 'center' as const,
+            fontSize: '0.9rem',
+            fontWeight: 500
+        },
+
+        variantOptionActive: {
+            backgroundColor: '#bc987e',
+            color: 'white',
+            border: '2px solid #bc987e'
+        } as React.CSSProperties,
+
+        variantOptionInactive: {
+            backgroundColor: '#f5f5f5',
+            color: '#333',
+            border: '2px solid transparent'
         } as React.CSSProperties,
 
         sizeOptions: {
             display: 'flex',
-            gap: '10px'
+            gap: '10px',
+            flexWrap: 'wrap' as const
         } as React.CSSProperties,
 
         sizeOption: {
-            // width: '100%',
-            height: '30px',
+            height: '40px',
             borderRadius: '6px',
             cursor: 'pointer',
             transition: 'all 0.3s ease',
             alignContent: 'center',
-            padding: '0px 12px'
+            padding: '0px 16px',
+            minWidth: '60px',
+            textAlign: 'center' as const,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#f5f5f5'
         },
 
         sizeOptionActive: {
-            border: '2px solid #bc987e'
+            border: '2px solid #bc987e',
+            backgroundColor: '#bc987e',
+            color: 'white'
         } as React.CSSProperties,
 
         sizeOptionInactive: {
             border: '2px solid transparent'
         } as React.CSSProperties,
 
-
         colorOptions: {
             display: 'flex',
-            gap: '10px'
+            gap: '10px',
+            flexWrap: 'wrap' as const
         } as React.CSSProperties,
 
         colorOption: {
@@ -256,7 +444,8 @@ const ProductPage: React.FC = () => {
         },
 
         colorOptionActive: {
-            border: '2px solid #bc987e'
+            border: '3px solid #bc987e',
+            transform: 'scale(1.1)'
         } as React.CSSProperties,
 
         colorOptionInactive: {
@@ -357,11 +546,12 @@ const ProductPage: React.FC = () => {
                         <div style={styles.imageSection}>
                             <div style={styles.mainImageContainer}>
                                 <img
-                                    src={images[currentImageIndex].url}
-                                    alt={images[currentImageIndex].alt}
+                                    src={currentImages[currentImageIndex].url}
+                                    alt={currentImages[currentImageIndex].alt}
                                     style={styles.mainImage}
+                                    onClick={() => handleImagePreview(currentImageIndex)}
                                     onMouseEnter={(e) => {
-                                        (e.target as HTMLImageElement).style.transform = 'scale(1.1)';
+                                        (e.target as HTMLImageElement).style.transform = 'scale(1.05)';
                                     }}
                                     onMouseLeave={(e) => {
                                         (e.target as HTMLImageElement).style.transform = 'scale(1)';
@@ -400,7 +590,7 @@ const ProductPage: React.FC = () => {
                             </div>
 
                             <div style={styles.thumbnailContainer}>
-                                {images.map((image, index) => (
+                                {currentImages.map((image, index) => (
                                     <img
                                         key={image.id}
                                         src={image.url.replace('w=500&h=600', 'w=100&h=100')}
@@ -430,44 +620,73 @@ const ProductPage: React.FC = () => {
                         {/* Product Details Section */}
                         <div style={styles.detailsSection}>
                             <div>
-                                <h1 style={styles.productTitle}>Scream Tee</h1>
-                                <div style={styles.productPrice}>RM 189.00</div>
+                                <h1 style={styles.productTitle}>{currentVariant.name}</h1>
+                                <div style={styles.productPrice}>{currentVariant.price}</div>
 
                                 <div style={styles.section}>
                                     <h3 style={styles.sectionTitle}>Description</h3>
                                     <p style={styles.description}>
-                                        A premium quality cotton t-shirt featuring a minimalist design with subtle branding.
-                                        Made from 100% organic cotton for ultimate comfort and durability. Perfect for casual
-                                        wear or layering. The classic fit ensures a comfortable wearing experience throughout the day.
+                                        {currentVariant.description}
                                     </p>
+                                </div>
+
+                                <div style={styles.section}>
+                                    <h3 style={styles.sectionTitle}>Product Variants</h3>
+                                    <div style={styles.variantOptions}>
+                                        {productVariants.map((variant) => (
+                                            <div
+                                                key={variant.id}
+                                                onClick={() => handleVariantSelect(variant.id)}
+                                                style={{
+                                                    ...styles.variantOption,
+                                                    ...(selectedVariant === variant.id ? styles.variantOptionActive : styles.variantOptionInactive)
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    if (selectedVariant !== variant.id) {
+                                                        (e.target as HTMLDivElement).style.backgroundColor = '#e5e5e5';
+                                                        (e.target as HTMLDivElement).style.borderColor = '#bc987e';
+                                                    }
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    if (selectedVariant !== variant.id) {
+                                                        (e.target as HTMLDivElement).style.backgroundColor = '#f5f5f5';
+                                                        (e.target as HTMLDivElement).style.borderColor = 'transparent';
+                                                    }
+                                                }}
+                                            >
+                                                {variant.name}
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
 
                                 <div style={styles.section}>
                                     <h3 style={styles.sectionTitle}>Size</h3>
                                     <div style={styles.sizeOptions}>
-                                        {sizeOptions.map((size) => (
+                                        {currentVariant.sizeOptions.map((size) => (
                                             <div
                                                 key={size.id}
                                                 onClick={() => handleSizeSelect(size.id)}
                                                 style={{
                                                     ...styles.sizeOption,
-                                                    backgroundColor: size.value,
                                                     ...(selectedSize === size.id ? styles.sizeOptionActive : styles.sizeOptionInactive)
                                                 }}
                                                 title={size.name}
                                                 onMouseEnter={(e) => {
                                                     if (selectedSize !== size.id) {
                                                         (e.target as HTMLDivElement).style.borderColor = '#d5cfbf';
+                                                        (e.target as HTMLDivElement).style.backgroundColor = '#e5e5e5';
                                                     }
-                                                    (e.target as HTMLDivElement).style.transform = 'scale(1.1)';
                                                 }}
                                                 onMouseLeave={(e) => {
                                                     if (selectedSize !== size.id) {
                                                         (e.target as HTMLDivElement).style.borderColor = 'transparent';
+                                                        (e.target as HTMLDivElement).style.backgroundColor = '#f5f5f5';
                                                     }
-                                                    (e.target as HTMLDivElement).style.transform = 'scale(1)';
                                                 }}
-                                            >{size.name}</div>
+                                            >
+                                                {size.name}
+                                            </div>
                                         ))}
                                     </div>
                                 </div>
@@ -475,7 +694,7 @@ const ProductPage: React.FC = () => {
                                 <div style={styles.section}>
                                     <h3 style={styles.sectionTitle}>Color</h3>
                                     <div style={styles.colorOptions}>
-                                        {colorOptions.map((color) => (
+                                        {currentVariant.colorOptions.map((color) => (
                                             <div
                                                 key={color.id}
                                                 onClick={() => handleColorSelect(color.id)}
@@ -489,13 +708,13 @@ const ProductPage: React.FC = () => {
                                                     if (selectedColor !== color.id) {
                                                         (e.target as HTMLDivElement).style.borderColor = '#d5cfbf';
                                                     }
-                                                    (e.target as HTMLDivElement).style.transform = 'scale(1.1)';
+                                                    (e.target as HTMLDivElement).style.transform = 'scale(1.05)';
                                                 }}
                                                 onMouseLeave={(e) => {
                                                     if (selectedColor !== color.id) {
                                                         (e.target as HTMLDivElement).style.borderColor = 'transparent';
+                                                        (e.target as HTMLDivElement).style.transform = 'scale(1)';
                                                     }
-                                                    (e.target as HTMLDivElement).style.transform = 'scale(1)';
                                                 }}
                                             />
                                         ))}
@@ -520,7 +739,6 @@ const ProductPage: React.FC = () => {
                                             −
                                         </button>
                                         <input
-                                            type="number"
                                             value={quantity}
                                             onChange={(e) => handleQuantityChange(parseInt(e.target.value) || 1)}
                                             style={styles.quantityInput}
@@ -549,92 +767,12 @@ const ProductPage: React.FC = () => {
                                     </div>
                                 </div>
                             </div>
-
-                            <div>
-                                <div style={styles.actionButtons}>
-                                    <button
-                                        style={{ ...styles.btn, ...styles.btnPrimary }}
-                                        onClick={handleBuyNow}
-                                        onMouseEnter={(e) => {
-                                            (e.target as HTMLButtonElement).style.background = '#0056b3';
-                                            (e.target as HTMLButtonElement).style.transform = 'translateY(-2px)';
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            (e.target as HTMLButtonElement).style.background = '#007bff';
-                                            (e.target as HTMLButtonElement).style.transform = 'translateY(0)';
-                                        }}
-                                    >
-                                        Buy Now
-                                    </button>
-                                    <button
-                                        style={{ ...styles.btn, ...styles.btnSecondary }}
-                                        onClick={handleAddToCart}
-                                        onMouseEnter={(e) => {
-                                            (e.target as HTMLButtonElement).style.background = '#555';
-                                            (e.target as HTMLButtonElement).style.transform = 'translateY(-2px)';
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            (e.target as HTMLButtonElement).style.background = '#333';
-                                            (e.target as HTMLButtonElement).style.transform = 'translateY(0)';
-                                        }}
-                                    >
-                                        Add to Cart
-                                    </button>
-                                </div>
-
-                                {/* <div style={styles.socialButtons}>
-                                    <button
-                                        style={{ ...styles.socialBtn, ...styles.facebook }}
-                                        onMouseEnter={(e) => {
-                                            (e.target as HTMLButtonElement).style.transform = 'scale(1.1)';
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            (e.target as HTMLButtonElement).style.transform = 'scale(1)';
-                                        }}
-                                    >
-                                        <Facebook size={20} />
-                                    </button>
-                                    <button
-                                        style={{ ...styles.socialBtn, ...styles.twitter }}
-                                        onMouseEnter={(e) => {
-                                            (e.target as HTMLButtonElement).style.transform = 'scale(1.1)';
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            (e.target as HTMLButtonElement).style.transform = 'scale(1)';
-                                        }}
-                                    >
-                                        <Twitter size={20} />
-                                    </button>
-                                    <button
-                                        style={{ ...styles.socialBtn, ...styles.pinterest }}
-                                        onMouseEnter={(e) => {
-                                            (e.target as HTMLButtonElement).style.transform = 'scale(1.1)';
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            (e.target as HTMLButtonElement).style.transform = 'scale(1)';
-                                        }}
-                                    >
-                                        <Share size={20} />
-                                    </button>
-                                    <button
-                                        style={{ ...styles.socialBtn, ...styles.whatsapp }}
-                                        onMouseEnter={(e) => {
-                                            (e.target as HTMLButtonElement).style.transform = 'scale(1.1)';
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            (e.target as HTMLButtonElement).style.transform = 'scale(1)';
-                                        }}
-                                    >
-                                        <MessageCircle size={20} />
-                                    </button>
-                                </div> */}
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default ProductPage;
+export default ProductDetails;
