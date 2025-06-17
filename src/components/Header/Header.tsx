@@ -30,14 +30,14 @@ const Header: React.FC<HeaderProps> = ({ isScrolled }) => {
   };
 
   return (
-    <header 
+    <header
       className={`header ${isScrolled ? 'header--scrolled' : ''} ${shouldShowHeader ? 'header--visible' : 'header--hidden'}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="header__announcement">
+      {/* <div className="header__announcement">
         Enjoy Free Shipping at purchase of RM150-WM, RM200-EM
-      </div>
+      </div> */}
 
       <div className="container">
         <div className="header__content">
@@ -47,7 +47,7 @@ const Header: React.FC<HeaderProps> = ({ isScrolled }) => {
 
           <div className="header__logo">
             <Link to="/" className="header__logo-link">
-              Maah Studio
+              MAAH STUDIO
             </Link>
           </div>
 

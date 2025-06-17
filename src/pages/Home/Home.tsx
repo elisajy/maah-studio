@@ -17,41 +17,41 @@ const Home: React.FC = () => {
         </div>
       </section> */}
       <BannerGallery />
-      
+
       {/* Featured Products */}
       <section className="featured">
         <div className="container">
-          <h2 className="section-title">Featured Products</h2>
-          
+          <h2 className="section-title">New Arrivals</h2>
+
           <div className="products-grid">
             {/* Product 1 */}
             <div className="product-card">
               <div className="product-card__image">
                 <div className="product-card__tag">SOLD OUT</div>
-                <img src="/placeholder-product-1.jpg" alt="Oversize Breeze Shirt in Black" className="product-card__img" />
+                <img src="src/images/apparel/IMG_7251.jpg" alt="Oversize Breeze Shirt in Black" className="product-card__img" />
               </div>
               <div className="product-card__info">
                 <h3 className="product-card__title">Oversize Breeze Shirt in Black</h3>
                 <p className="product-card__price">RM 89.00</p>
               </div>
             </div>
-            
+
             {/* Product 2 */}
             <div className="product-card">
               <div className="product-card__image">
-                <img src="/placeholder-product-2.jpg" alt="Oversize Breeze Shirt in White" className="product-card__img" />
+                <img src="src/images/apparel/IMG_7282.jpg" alt="Oversize Breeze Shirt in White" className="product-card__img" />
               </div>
               <div className="product-card__info">
                 <h3 className="product-card__title">Oversize Breeze Shirt in White</h3>
                 <p className="product-card__price">RM 89.00</p>
               </div>
             </div>
-            
+
             {/* Product 3 */}
             <div className="product-card">
               <div className="product-card__image">
                 <div className="product-card__tag">SOLD OUT</div>
-                <img src="/placeholder-product-3.jpg" alt="Oversize Breeze Shirt in Sage Green" className="product-card__img" />
+                <img src="src/images/apparel/IMG_7335.jpg" alt="Oversize Breeze Shirt in Sage Green" className="product-card__img" />
               </div>
               <div className="product-card__info">
                 <h3 className="product-card__title">Oversize Breeze Shirt in Sage Green</h3>
@@ -59,13 +59,13 @@ const Home: React.FC = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="featured__bottom">
             <Link to="/new" className="button button--outline">View All Products</Link>
           </div>
         </div>
       </section>
-      
+
       {/* Collection Banner */}
       <section className="collection-banner">
         <div className="container">
@@ -76,7 +76,7 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
-      
+
       {/* Values Section */}
       <section className="values">
         <div className="container">
@@ -91,7 +91,7 @@ const Home: React.FC = () => {
               <h3 className="values__title">Locally Made</h3>
               <p className="values__text">All our products are designed and crafted locally with care.</p>
             </div>
-            
+
             <div className="values__item">
               <div className="values__icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -103,7 +103,7 @@ const Home: React.FC = () => {
               <h3 className="values__title">Quality Materials</h3>
               <p className="values__text">We use sustainable fabrics that are gentle on the environment.</p>
             </div>
-            
+
             <div className="values__item">
               <div className="values__icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
