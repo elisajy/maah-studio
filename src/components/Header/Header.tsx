@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.scss';
 import HeaderActions from './HeaderAction/HeaderAction';
@@ -9,13 +9,32 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ isScrolled }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isHeaderHovered, setIsHeaderHovered] = useState(false);
+  const [shouldShowHeader, setShouldShowHeader] = useState(false);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
+  // Show header when scrolled or hovered
+  useEffect(() => {
+    setShouldShowHeader(isScrolled || isHeaderHovered);
+  }, [isScrolled, isHeaderHovered]);
+
+  const handleMouseEnter = () => {
+    setIsHeaderHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHeaderHovered(false);
+  };
+
   return (
-    <header className={`header ${isScrolled ? 'header--scrolled' : ''}`}>
+    <header 
+      className={`header ${isScrolled ? 'header--scrolled' : ''} ${shouldShowHeader ? 'header--visible' : 'header--hidden'}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <div className="header__announcement">
         Enjoy Free Shipping at purchase of RM150-WM, RM200-EM
       </div>

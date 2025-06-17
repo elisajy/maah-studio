@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Home.scss';
+import BannerGallery from './BannerGallery';
 
 const Home: React.FC = () => {
   return (
     <div className="home">
       {/* Hero Banner */}
-      <section className="hero">
+      {/* <section className="hero">
         <div className="container">
           <div className="hero__content">
             <h1 className="hero__title">Enchanted Woods Collection</h1>
@@ -14,7 +15,8 @@ const Home: React.FC = () => {
             <Link to="/all" className="hero__cta">Shop Now</Link>
           </div>
         </div>
-      </section>
+      </section> */}
+      <BannerGallery />
       
       {/* Featured Products */}
       <section className="featured">

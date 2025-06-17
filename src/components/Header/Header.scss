@@ -275,4 +275,71 @@
   // .shopping-cart-container {
   //   z-index: 1001; /* Higher than other elements in your header */
   // }
+
+  &--hidden {
+    background-color: transparent;
+    box-shadow: none;
+
+    .header__announcement {
+      opacity: 0;
+      height: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .header__content {
+      background-color: transparent;
+    }
+
+    .header__logo-link,
+    .header__language-btn,
+    .header__action-btn,
+    .header__mobile-menu-btn {
+      opacity: 0.3;
+      transition: opacity var.$transition-medium;
+    }
+
+    .header__nav {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  &--visible {
+    background-color: var.$background-primary;
+
+    .header__announcement {
+      opacity: 1;
+    }
+
+    .header__logo-link,
+    .header__language-btn,
+    .header__action-btn,
+    .header__mobile-menu-btn {
+      opacity: 1;
+      transition: opacity var.$transition-medium;
+    }
+
+    .header__nav {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+
+  // Smooth transition for all states
+  &--hidden,
+  &--visible {
+    transition: background-color var.$transition-medium,
+      box-shadow var.$transition-medium;
+  }
+
+  // Override for mobile - always show when menu is open
+  @include mix.mobile {
+    &--hidden {
+      .header__nav--open {
+        opacity: 1;
+        pointer-events: all;
+      }
+    }
+  }
 }
