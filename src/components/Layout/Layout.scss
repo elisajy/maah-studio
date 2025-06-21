@@ -10,10 +10,10 @@
 
 .main-content {
   flex: 1;
-  padding-top: 150px; // Adjust based on header height
+  // padding-top: 150px; // Adjust based on header height
   padding-bottom: var.$spacing-xl;
   
   @include mix.mobile {
-    padding-top: 60px; // Smaller header height on mobile
+    // padding-top: 60px; // Smaller header height on mobile
   }
 }

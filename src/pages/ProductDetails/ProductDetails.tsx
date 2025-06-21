@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Facebook, Twitter, Share, MessageCircle, X } from 'lucide-react';
+import { useCart } from '../../components/Cart/CartContext';
 
 interface ProductImage {
     id: number;
@@ -37,7 +38,7 @@ const ProductDetails: React.FC = () => {
     const [quantity, setQuantity] = useState<number>(1);
     const [isPreviewOpen, setIsPreviewOpen] = useState<boolean>(false);
     const [previewImageIndex, setPreviewImageIndex] = useState<number>(0);
-
+    const { addToCart } = useCart();
     // Product variants data
     const productVariants: ProductVariant[] = [
         {
@@ -151,12 +152,17 @@ const ProductDetails: React.FC = () => {
         }
     };
 
-    const handleBuyNow = (): void => {
-        console.log('Buy Now clicked', { variant: selectedVariant, color: selectedColor, size: selectedSize, quantity });
-    };
-
     const handleAddToCart = (): void => {
-        console.log('Add to Cart clicked', { variant: selectedVariant, color: selectedColor, size: selectedSize, quantity });
+        console.log('Buy Now clicked', { variant: selectedVariant, color: selectedColor, size: selectedSize, quantity });
+        const foundItem = productVariants.find(item => item.id === selectedVariant);
+        if (foundItem) {
+            const priceString = foundItem.price;
+            const match = priceString.match(/\d+(\.\d+)?/);
+            const price = match ? parseFloat(match[0]) : 0;
+            const foundColor = (foundItem.colorOptions).find(item => item.id === selectedColor);
+            const foundSize = (foundItem.sizeOptions).find(item => item.id === selectedSize);
+            addToCart({ id: selectedVariant, name: foundItem.name, price: price, image: foundItem.images[0].url, variant: foundColor!.name, size: foundSize!.name })
+        }
     };
 
     // Styles
@@ -530,6 +536,18 @@ const ProductDetails: React.FC = () => {
             color: 'white',
             transition: 'all 0.3s ease'
         },
+        addCartButton: {
+            padding: '12px 16px',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease',
+            textAlign: 'center' as const,
+            fontSize: '0.9rem',
+            fontWeight: 500,
+            backgroundColor: '#dfbea6',
+            color: 'white',
+            border: '2px solid #dfbea6'
+        },
 
         facebook: { background: '#1877f2' } as React.CSSProperties,
         twitter: { background: '#1da1f2' } as React.CSSProperties,
@@ -764,6 +782,27 @@ const ProductDetails: React.FC = () => {
                                         >
                                             +
                                         </button>
+                                    </div>
+                                </div>
+
+                                <div style={styles.section}>
+                                    <div
+                                        onClick={() => handleAddToCart()}
+                                        style={{
+                                            ...styles.addCartButton,
+                                            // ...(selectedVariant === variant.id ? styles.variantOptionActive : styles.variantOptionInactive)
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            (e.target as HTMLDivElement).style.backgroundColor = '#bc987e';
+                                            (e.target as HTMLDivElement).style.borderColor = '#bc987e';
+
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            (e.target as HTMLDivElement).style.backgroundColor = '#dfbea6';
+                                            (e.target as HTMLDivElement).style.borderColor = '#dfbea6';
+                                        }}
+                                    >
+                                        Add To Cart
                                     </div>
                                 </div>
                             </div>

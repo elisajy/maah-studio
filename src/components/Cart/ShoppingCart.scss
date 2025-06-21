@@ -1,7 +1,7 @@
 @use "sass:color";
 
 // Updated Theme Variables - Linen Theme
-$drawer-width: 380px;
+$drawer-width: 500px;
 $primary-color: #bc987e;
 $secondary-color: #d5cfbf;
 $background-linen: #faf0e6;
@@ -264,7 +264,13 @@ $transition: all 0.3s ease;
       margin: 0;
       font-weight: 600;
       color: $primary-color;
-      font-size: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .item-color-size {
+      margin: 0;
+      font-weight: 600;
+      font-size: 0.7rem;
     }
   }
 
@@ -352,7 +358,11 @@ $transition: all 0.3s ease;
       }
 
       .item-price {
-        font-size: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .item-color-size {
+        font-size: 0.7rem;
       }
     }
 
@@ -514,7 +524,11 @@ $transition: all 0.3s ease;
       }
 
       .item-price {
-        font-size: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .item-color-size {
+        font-size: 0.7rem;
       }
     }
 

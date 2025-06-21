@@ -35,9 +35,9 @@ const Header: React.FC<HeaderProps> = ({ isScrolled }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* <div className="header__announcement">
+      <div className="header__announcement">
         Enjoy Free Shipping at purchase of RM150-WM, RM200-EM
-      </div> */}
+      </div>
 
       <div className="container">
         <div className="header__content">

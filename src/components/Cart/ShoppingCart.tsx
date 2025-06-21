@@ -4,6 +4,7 @@ import { useCart } from './CartContext';
 import './CartButton.scss';
 import './ShoppingCart.scss';
 import { Typography } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 interface ShoppingCartComponentProps {
   isOpen: boolean;
@@ -45,6 +46,7 @@ const mockProducts: any[] = [];
 // ];
 
 const ShoppingCartComponent: React.FC<ShoppingCartComponentProps> = ({ isOpen, onClose }) => {
+  const navigate = useNavigate();
   const {
     cartItems,
     updateQuantity,
@@ -55,19 +57,23 @@ const ShoppingCartComponent: React.FC<ShoppingCartComponentProps> = ({ isOpen, o
   } = useCart();
 
   // Add mock products to cart when component mounts (for testing purposes)
+  // useEffect(() => {
+  //   // Only add mock data if cart is empty
+  //   if (cartItems.length === 0) {
+  //     mockProducts.forEach(product => {
+  //       // If addToCart method exists, use it
+  //       if (addToCart) {
+  //         for (let i = 0; i < product.quantity; i++) {
+  //           addToCart(product);
+  //         }
+  //       }
+  //     });
+  //   }
+  // }, [cartItems.length, addToCart]);
+
   useEffect(() => {
-    // Only add mock data if cart is empty
-    if (cartItems.length === 0) {
-      mockProducts.forEach(product => {
-        // If addToCart method exists, use it
-        if (addToCart) {
-          for (let i = 0; i < product.quantity; i++) {
-            addToCart(product);
-          }
-        }
-      });
-    }
-  }, [cartItems.length, addToCart]);
+    console.log('cartItems', cartItems);
+  }, [cartItems])
 
   const handleDecrease = (id: string, quantity: number) => {
     if (quantity > 1) {
@@ -88,10 +94,14 @@ const ShoppingCartComponent: React.FC<ShoppingCartComponentProps> = ({ isOpen, o
     const whatsappMessage = `Hello, I'd like to order:%0A%0A${message}%0A%0A*Total: $${total}*%0A%0AThank you!`;
 
     // Replace with your actual WhatsApp number (include country code without +)
-    const phoneNumber = '+601111660611'; // Change this to your actual number
+    const phoneNumber = '601111660611'; // Change this to your actual number
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${whatsappMessage}`;
 
     window.open(whatsappUrl, '_blank');
+  };
+
+  const handleCheckout = () => {
+    navigate(`/order-checkout`);
   };
 
   // Alternative method to manually add mock data (you can call this from browser console)
@@ -155,6 +165,7 @@ const ShoppingCartComponent: React.FC<ShoppingCartComponentProps> = ({ isOpen, o
                 </div>
                 <div className="item-details">
                   <h3>{item.name}</h3>
+                  <p className="item-color-size">{item.variant} | {item.size}</p>
                   <p className="item-price">${(item.price * item.quantity).toFixed(2)}</p>
                 </div>
                 <div className="item-controls">
@@ -179,9 +190,12 @@ const ShoppingCartComponent: React.FC<ShoppingCartComponentProps> = ({ isOpen, o
               <span>${getTotalPrice().toFixed(2)}</span>
             </div>
             <div className="cart-actions">
-              <button className="checkout-button" onClick={handleWhatsAppCheckout}>
-                Checkout with WhatsApp
+              <button className="checkout-button" onClick={handleCheckout}>
+                Checkout
               </button>
+              {/* <button className="checkout-button" onClick={handleWhatsAppCheckout}>
+                Checkout with WhatsApp
+              </button> */}
               <button className="continue-shopping" onClick={clearCart}>
                 Clear Cart
               </button>

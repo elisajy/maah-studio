@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useCart } from '../../Cart/CartContext';
 import ShoppingCartComponent from '../../Cart/ShoppingCart';
 import '../../Cart/CartButton.scss';
+import './HeaderAction.scss'
 
 const HeaderActions: React.FC<{
     toggleMobileMenu: () => void;

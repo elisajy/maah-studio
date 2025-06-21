@@ -3,22 +3,28 @@
 @use "../../theme/mixins" as mix;
 
 .header {
-  position: static;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   z-index: 1000;
   background-color: var.$background-primary;
-  transition: all var.$transition-medium;
+  // Consolidated transition for all properties
+  transition: background-color var.$transition-medium,
+    box-shadow var.$transition-medium, backdrop-filter var.$transition-medium;
+
+  // Add backdrop blur for better visual separation when scrolled
+  backdrop-filter: blur(0px);
 
   &--scrolled {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+
     .header__announcement {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1001;
-      height: auto;
-      padding: var.$spacing-xs 0;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      height: 0;
+      padding: 0;
+      overflow: hidden;
+      opacity: 0;
     }
 
     .header__content {
@@ -32,7 +38,11 @@
     text-align: center;
     padding: var.$spacing-xs 0;
     font-size: var.$font-size-xs;
-    transition: all var.$transition-medium;
+    // Improved transition for height and opacity changes
+    transition: height var.$transition-medium ease-out,
+      padding var.$transition-medium ease-out,
+      opacity var.$transition-medium ease-out;
+    opacity: 1;
 
     @include mix.mobile {
       font-size: 10px;
@@ -42,7 +52,8 @@
   &__content {
     @include mix.flex(row, space-between, center);
     padding: var.$spacing-md 0;
-    transition: padding var.$transition-medium;
+    // Smoother easing for padding changes
+    transition: padding var.$transition-medium ease-out;
   }
 
   &__language {
@@ -51,6 +62,7 @@
     &-btn {
       @include mix.button-reset;
       font-size: var.$font-size-sm;
+      transition: opacity var.$transition-medium ease-out;
     }
   }
 
@@ -64,6 +76,7 @@
       letter-spacing: 2px;
       color: var.$text-primary;
       text-decoration: none;
+      transition: opacity var.$transition-medium ease-out;
 
       @include mix.mobile {
         font-size: var.$font-size-lg;
@@ -72,7 +85,7 @@
   }
 
   &__actions {
-    flex: 0 0 120px;
+    flex: 0 0 50px;
     @include mix.flex(row, flex-end, center);
     gap: var.$spacing-sm;
   }
@@ -80,24 +93,46 @@
   &__action-btn {
     @include mix.button-reset;
     position: relative;
+    background: none;
+    border: none;
+    padding: 8px;
+    margin-left: 5px;
+    cursor: pointer;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity var.$transition-medium ease-out,
+      color var.$transition-fast ease-out;
+
+    &:hover {
+      color: #4a6cf7;
+    }
   }
 
   &__cart-count {
     position: absolute;
-    top: -5px;
-    right: -5px;
-    background-color: var.$accent-color;
+    top: 0;
+    right: 0;
+    background-color: #ff3a30;
     color: white;
-    font-size: 10px;
-    width: 16px;
+    font-size: 0.6rem;
+    font-weight: 600;
+    min-width: 16px;
     height: 16px;
-    border-radius: 50%;
-    @include mix.flex-center;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    transform: translate(25%, -25%);
+    transition: transform var.$transition-fast ease-out;
   }
 
   &__mobile-menu-btn {
     @include mix.button-reset;
     display: none;
+    transition: opacity var.$transition-medium ease-out;
 
     @include mix.mobile {
       display: block;
@@ -111,7 +146,7 @@
     height: 2px;
     background-color: var.$text-primary;
     position: relative;
-    transition: background-color var.$transition-fast;
+    transition: background-color var.$transition-fast ease-out;
 
     &::before,
     &::after {
@@ -120,7 +155,7 @@
       width: 100%;
       height: 100%;
       background-color: var.$text-primary;
-      transition: transform var.$transition-fast;
+      transition: transform var.$transition-fast ease-out;
     }
 
     &::before {
@@ -145,6 +180,9 @@
   }
 
   &__nav {
+    transition: opacity var.$transition-medium ease-out,
+      max-height var.$transition-medium ease-out;
+
     @include mix.mobile {
       position: absolute;
       top: 100%;
@@ -153,7 +191,6 @@
       background-color: var.$background-primary;
       max-height: 0;
       overflow: hidden;
-      transition: max-height var.$transition-medium;
       box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
 
       &--open {
@@ -190,7 +227,7 @@
     letter-spacing: 1px;
     text-decoration: none;
     color: var.$text-primary;
-    transition: color var.$transition-fast;
+    transition: color var.$transition-fast ease-out;
 
     &::after {
       content: "";
@@ -200,7 +237,7 @@
       width: 0;
       height: 1px;
       background-color: var.$accent-color;
-      transition: width var.$transition-fast;
+      transition: width var.$transition-fast ease-out;
     }
 
     &:hover {
@@ -230,60 +267,81 @@
     }
   }
 
-  /* Shopping cart and action button styles (unchanged to preserve functionality) */
-  .header__actions {
-    display: flex;
-    align-items: center;
-  }
+  // Improved hidden/visible state transitions
+  &--hidden {
+    background-color: rgba(
+      255,
+      255,
+      255,
+      0.1
+    ); // Semi-transparent instead of fully transparent
+    box-shadow: none;
+    backdrop-filter: blur(5px);
 
-  .header__action-btn {
-    position: relative;
-    background: none;
-    border: none;
-    padding: 8px;
-    margin-left: 5px;
-    cursor: pointer;
-    color: #333;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    .header__announcement {
+      opacity: 0;
+      height: 0;
+      padding: 0;
+      overflow: hidden;
+    }
 
-    &:hover {
-      color: #4a6cf7;
+    .header__content {
+      background-color: transparent;
+    }
+
+    .header__logo-link,
+    .header__language-btn,
+    .header__action-btn,
+    .header__mobile-menu-btn {
+      opacity: 0.7; // Less dramatic opacity change
+    }
+
+    .header__nav {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .header__nav-link {
+      color: white;
     }
   }
 
-  /* Cart count styling preserved */
-  .header__cart-count {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: #ff3a30;
-    color: white;
-    font-size: 0.6rem;
-    font-weight: 600;
-    min-width: 16px;
-    height: 16px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 4px;
-    transform: translate(25%, -25%);
-  }
+  &--visible {
+    background-color: var.$background-primary;
+    backdrop-filter: blur(10px);
 
-  // Removed the --hidden and --visible states that caused opacity changes
-  // Header now maintains full opacity at all times
+    .header__announcement {
+      opacity: 1;
+    }
 
-  // Smooth transition for scrolled state
-  transition: background-color var.$transition-medium,
-    box-shadow var.$transition-medium;
+    .header__logo-link,
+    .header__language-btn,
+    .header__action-btn,
+    .header__mobile-menu-btn {
+      opacity: 1;
+    }
 
-  // Override for mobile - always show when menu is open
-  @include mix.mobile {
-    .header__nav--open {
+    .header__nav {
       opacity: 1;
       pointer-events: all;
     }
+  }
+
+  // Override for mobile - always show when menu is open
+  @include mix.mobile {
+    &--hidden {
+      .header__nav--open {
+        opacity: 1;
+        pointer-events: all;
+      }
+    }
+  }
+
+  // Performance optimization: Use transform3d to enable hardware acceleration
+  &,
+  &__announcement,
+  &__content,
+  &__nav {
+    transform: translateZ(0); // Force hardware acceleration
   }
 }

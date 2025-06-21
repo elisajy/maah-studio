@@ -7,6 +7,8 @@ export interface Product {
   price: number;
   image: string;
   description?: string;
+  variant?: string;
+  size?: string;
 }
 
 export interface CartItem extends Product {
@@ -49,16 +51,40 @@ const initialState: CartState = {
 // Reducer
 const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
+    // case 'ADD_ITEM': {
+    //   const existingIndex = state.items.findIndex(item => item.id === action.payload.id);
+    //   let updatedItems = [...state.items];
+
+    //   if (existingIndex > -1) {
+    //     updatedItems[existingIndex] = {
+    //       ...updatedItems[existingIndex],
+    //       quantity: updatedItems[existingIndex].quantity + 1
+    //     };
+    //   } else {
+    //     updatedItems.push({ ...action.payload, quantity: 1 });
+    //   }
+
+    //   const itemCount = updatedItems.reduce((sum, item) => sum + item.quantity, 0);
+    //   const total = updatedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+    //   return { items: updatedItems, itemCount, total };
+    // }
     case 'ADD_ITEM': {
-      const existingIndex = state.items.findIndex(item => item.id === action.payload.id);
+      const existingIndex = state.items.findIndex(item =>
+        item.id === action.payload.id &&
+        item.variant === action.payload.variant &&
+        item.size === action.payload.size
+      );
       let updatedItems = [...state.items];
 
       if (existingIndex > -1) {
+        // Same item with same color and size - increase quantity
         updatedItems[existingIndex] = {
           ...updatedItems[existingIndex],
           quantity: updatedItems[existingIndex].quantity + 1
         };
       } else {
+        // New item or same item with different color/size - add as new entry
         updatedItems.push({ ...action.payload, quantity: 1 });
       }
 

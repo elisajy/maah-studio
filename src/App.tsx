@@ -9,6 +9,8 @@ import Guide from './pages/Guide/Guide';
 import ShippingReturn from './pages/ShippingReturnPolicy/ShippingReturnPolicy';
 import FAQ from './pages/FAQ/FAQ';
 import ProductDetails from './pages/ProductDetails/ProductDetails';
+import ScrollToTop from './components/ScrollToTop/ScrollToTop';
+import CheckoutPage from './pages/Checkout/Checkout';
 
 // Mock pages for demonstration (you can create these yourself)
 // const New = () => <div className="container py-5"><h1>New Arrivals</h1></div>;
@@ -31,6 +33,7 @@ const NotFound = () => <div className="container py-5"><h1>Page Not Found</h1></
 const App: React.FC = () => {
   return (
     <Router>
+      <ScrollToTop />
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -50,7 +53,8 @@ const App: React.FC = () => {
           <Route path="/account" element={<Account />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/product-details/:id" element={<ProductDetails />} />
-          
+          <Route path="/order-checkout" element={<CheckoutPage />} />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
