@@ -1,6 +1,6 @@
+import { MailOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { Collapse, Space, Typography } from 'antd';
 import React from 'react';
-import { Collapse, Typography, Space } from 'antd';
-import { QuestionCircleOutlined, MailOutlined, PlusOutlined, MinusOutlined } from '@ant-design/icons';
 import './FAQ.scss';
 
 const { Title, Text, Link } = Typography;

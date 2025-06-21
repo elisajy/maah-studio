@@ -1,5 +1,5 @@
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Facebook, Twitter, Share, MessageCircle, X } from 'lucide-react';
 import { useCart } from '../../components/Cart/CartContext';
 
 interface ProductImage {
@@ -556,253 +556,255 @@ const ProductDetails: React.FC = () => {
     };
 
     return (
-        <div style={styles.productPage}>
-            <div style={styles.productContainer}>
-                <div style={styles.productCard}>
-                    <div style={styles.productContent}>
-                        {/* Image Gallery Section */}
-                        <div style={styles.imageSection}>
-                            <div style={styles.mainImageContainer}>
-                                <img
-                                    src={currentImages[currentImageIndex].url}
-                                    alt={currentImages[currentImageIndex].alt}
-                                    style={styles.mainImage}
-                                    onClick={() => handleImagePreview(currentImageIndex)}
-                                    onMouseEnter={(e) => {
-                                        (e.target as HTMLImageElement).style.transform = 'scale(1.05)';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        (e.target as HTMLImageElement).style.transform = 'scale(1)';
-                                    }}
-                                />
-
-                                <button
-                                    style={{ ...styles.navButton, ...styles.prevButton }}
-                                    onClick={() => handleImageChange(-1)}
-                                    onMouseEnter={(e) => {
-                                        (e.target as HTMLButtonElement).style.background = 'white';
-                                        (e.target as HTMLButtonElement).style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        (e.target as HTMLButtonElement).style.background = 'rgba(255,255,255,0.9)';
-                                        (e.target as HTMLButtonElement).style.boxShadow = 'none';
-                                    }}
-                                >
-                                    <ChevronLeft size={20} />
-                                </button>
-
-                                <button
-                                    style={{ ...styles.navButton, ...styles.nextButton }}
-                                    onClick={() => handleImageChange(1)}
-                                    onMouseEnter={(e) => {
-                                        (e.target as HTMLButtonElement).style.background = 'white';
-                                        (e.target as HTMLButtonElement).style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        (e.target as HTMLButtonElement).style.background = 'rgba(255,255,255,0.9)';
-                                        (e.target as HTMLButtonElement).style.boxShadow = 'none';
-                                    }}
-                                >
-                                    <ChevronRight size={20} />
-                                </button>
-                            </div>
-
-                            <div style={styles.thumbnailContainer}>
-                                {currentImages.map((image, index) => (
+        <>
+            <div style={styles.productPage}>
+                <div style={styles.productContainer}>
+                    <div style={styles.productCard}>
+                        <div style={styles.productContent}>
+                            {/* Image Gallery Section */}
+                            <div style={styles.imageSection}>
+                                <div style={styles.mainImageContainer}>
                                     <img
-                                        key={image.id}
-                                        src={image.url.replace('w=500&h=600', 'w=100&h=100')}
-                                        alt={image.alt}
-                                        onClick={() => handleThumbnailClick(index)}
-                                        style={{
-                                            ...styles.thumbnail,
-                                            ...(index === currentImageIndex ? styles.thumbnailActive : styles.thumbnailInactive)
-                                        }}
+                                        src={currentImages[currentImageIndex].url}
+                                        alt={currentImages[currentImageIndex].alt}
+                                        style={styles.mainImage}
+                                        onClick={() => handleImagePreview(currentImageIndex)}
                                         onMouseEnter={(e) => {
-                                            if (index !== currentImageIndex) {
-                                                (e.target as HTMLImageElement).style.borderColor = '#d5cfbf';
-                                            }
                                             (e.target as HTMLImageElement).style.transform = 'scale(1.05)';
                                         }}
                                         onMouseLeave={(e) => {
-                                            if (index !== currentImageIndex) {
-                                                (e.target as HTMLImageElement).style.borderColor = 'transparent';
-                                            }
                                             (e.target as HTMLImageElement).style.transform = 'scale(1)';
                                         }}
                                     />
-                                ))}
-                            </div>
-                        </div>
 
-                        {/* Product Details Section */}
-                        <div style={styles.detailsSection}>
-                            <div>
-                                <h1 style={styles.productTitle}>{currentVariant.name}</h1>
-                                <div style={styles.productPrice}>{currentVariant.price}</div>
-
-                                <div style={styles.section}>
-                                    <h3 style={styles.sectionTitle}>Description</h3>
-                                    <p style={styles.description}>
-                                        {currentVariant.description}
-                                    </p>
-                                </div>
-
-                                <div style={styles.section}>
-                                    <h3 style={styles.sectionTitle}>Product Variants</h3>
-                                    <div style={styles.variantOptions}>
-                                        {productVariants.map((variant) => (
-                                            <div
-                                                key={variant.id}
-                                                onClick={() => handleVariantSelect(variant.id)}
-                                                style={{
-                                                    ...styles.variantOption,
-                                                    ...(selectedVariant === variant.id ? styles.variantOptionActive : styles.variantOptionInactive)
-                                                }}
-                                                onMouseEnter={(e) => {
-                                                    if (selectedVariant !== variant.id) {
-                                                        (e.target as HTMLDivElement).style.backgroundColor = '#e5e5e5';
-                                                        (e.target as HTMLDivElement).style.borderColor = '#bc987e';
-                                                    }
-                                                }}
-                                                onMouseLeave={(e) => {
-                                                    if (selectedVariant !== variant.id) {
-                                                        (e.target as HTMLDivElement).style.backgroundColor = '#f5f5f5';
-                                                        (e.target as HTMLDivElement).style.borderColor = 'transparent';
-                                                    }
-                                                }}
-                                            >
-                                                {variant.name}
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <div style={styles.section}>
-                                    <h3 style={styles.sectionTitle}>Size</h3>
-                                    <div style={styles.sizeOptions}>
-                                        {currentVariant.sizeOptions.map((size) => (
-                                            <div
-                                                key={size.id}
-                                                onClick={() => handleSizeSelect(size.id)}
-                                                style={{
-                                                    ...styles.sizeOption,
-                                                    ...(selectedSize === size.id ? styles.sizeOptionActive : styles.sizeOptionInactive)
-                                                }}
-                                                title={size.name}
-                                                onMouseEnter={(e) => {
-                                                    if (selectedSize !== size.id) {
-                                                        (e.target as HTMLDivElement).style.borderColor = '#d5cfbf';
-                                                        (e.target as HTMLDivElement).style.backgroundColor = '#e5e5e5';
-                                                    }
-                                                }}
-                                                onMouseLeave={(e) => {
-                                                    if (selectedSize !== size.id) {
-                                                        (e.target as HTMLDivElement).style.borderColor = 'transparent';
-                                                        (e.target as HTMLDivElement).style.backgroundColor = '#f5f5f5';
-                                                    }
-                                                }}
-                                            >
-                                                {size.name}
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <div style={styles.section}>
-                                    <h3 style={styles.sectionTitle}>Color</h3>
-                                    <div style={styles.colorOptions}>
-                                        {currentVariant.colorOptions.map((color) => (
-                                            <div
-                                                key={color.id}
-                                                onClick={() => handleColorSelect(color.id)}
-                                                style={{
-                                                    ...styles.colorOption,
-                                                    backgroundColor: color.value,
-                                                    ...(selectedColor === color.id ? styles.colorOptionActive : styles.colorOptionInactive)
-                                                }}
-                                                title={color.name}
-                                                onMouseEnter={(e) => {
-                                                    if (selectedColor !== color.id) {
-                                                        (e.target as HTMLDivElement).style.borderColor = '#d5cfbf';
-                                                    }
-                                                    (e.target as HTMLDivElement).style.transform = 'scale(1.05)';
-                                                }}
-                                                onMouseLeave={(e) => {
-                                                    if (selectedColor !== color.id) {
-                                                        (e.target as HTMLDivElement).style.borderColor = 'transparent';
-                                                        (e.target as HTMLDivElement).style.transform = 'scale(1)';
-                                                    }
-                                                }}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <div style={styles.section}>
-                                    <h3 style={styles.sectionTitle}>Quantity</h3>
-                                    <div style={styles.quantityControls}>
-                                        <button
-                                            style={styles.quantityBtn}
-                                            onClick={() => handleQuantityChange(quantity - 1)}
-                                            onMouseEnter={(e) => {
-                                                (e.target as HTMLButtonElement).style.background = '#d5cfbf';
-                                                (e.target as HTMLButtonElement).style.color = 'white';
-                                            }}
-                                            onMouseLeave={(e) => {
-                                                (e.target as HTMLButtonElement).style.background = 'white';
-                                                (e.target as HTMLButtonElement).style.color = '#333';
-                                            }}
-                                        >
-                                            −
-                                        </button>
-                                        <input
-                                            value={quantity}
-                                            onChange={(e) => handleQuantityChange(parseInt(e.target.value) || 1)}
-                                            style={styles.quantityInput}
-                                            min="1"
-                                            onFocus={(e) => {
-                                                (e.target as HTMLInputElement).style.borderColor = '#bc987e';
-                                            }}
-                                            onBlur={(e) => {
-                                                (e.target as HTMLInputElement).style.borderColor = '#d5cfbf';
-                                            }}
-                                        />
-                                        <button
-                                            style={styles.quantityBtn}
-                                            onClick={() => handleQuantityChange(quantity + 1)}
-                                            onMouseEnter={(e) => {
-                                                (e.target as HTMLButtonElement).style.background = '#d5cfbf';
-                                                (e.target as HTMLButtonElement).style.color = 'white';
-                                            }}
-                                            onMouseLeave={(e) => {
-                                                (e.target as HTMLButtonElement).style.background = 'white';
-                                                (e.target as HTMLButtonElement).style.color = '#333';
-                                            }}
-                                        >
-                                            +
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div style={styles.section}>
-                                    <div
-                                        onClick={() => handleAddToCart()}
-                                        style={{
-                                            ...styles.addCartButton,
-                                            // ...(selectedVariant === variant.id ? styles.variantOptionActive : styles.variantOptionInactive)
-                                        }}
+                                    <button
+                                        style={{ ...styles.navButton, ...styles.prevButton }}
+                                        onClick={() => handleImageChange(-1)}
                                         onMouseEnter={(e) => {
-                                            (e.target as HTMLDivElement).style.backgroundColor = '#bc987e';
-                                            (e.target as HTMLDivElement).style.borderColor = '#bc987e';
-
+                                            (e.target as HTMLButtonElement).style.background = 'white';
+                                            (e.target as HTMLButtonElement).style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
                                         }}
                                         onMouseLeave={(e) => {
-                                            (e.target as HTMLDivElement).style.backgroundColor = '#dfbea6';
-                                            (e.target as HTMLDivElement).style.borderColor = '#dfbea6';
+                                            (e.target as HTMLButtonElement).style.background = 'rgba(255,255,255,0.9)';
+                                            (e.target as HTMLButtonElement).style.boxShadow = 'none';
                                         }}
                                     >
-                                        Add To Cart
+                                        <ChevronLeft size={20} />
+                                    </button>
+
+                                    <button
+                                        style={{ ...styles.navButton, ...styles.nextButton }}
+                                        onClick={() => handleImageChange(1)}
+                                        onMouseEnter={(e) => {
+                                            (e.target as HTMLButtonElement).style.background = 'white';
+                                            (e.target as HTMLButtonElement).style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            (e.target as HTMLButtonElement).style.background = 'rgba(255,255,255,0.9)';
+                                            (e.target as HTMLButtonElement).style.boxShadow = 'none';
+                                        }}
+                                    >
+                                        <ChevronRight size={20} />
+                                    </button>
+                                </div>
+
+                                <div style={styles.thumbnailContainer}>
+                                    {currentImages.map((image, index) => (
+                                        <img
+                                            key={image.id}
+                                            src={image.url.replace('w=500&h=600', 'w=100&h=100')}
+                                            alt={image.alt}
+                                            onClick={() => handleThumbnailClick(index)}
+                                            style={{
+                                                ...styles.thumbnail,
+                                                ...(index === currentImageIndex ? styles.thumbnailActive : styles.thumbnailInactive)
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                if (index !== currentImageIndex) {
+                                                    (e.target as HTMLImageElement).style.borderColor = '#d5cfbf';
+                                                }
+                                                (e.target as HTMLImageElement).style.transform = 'scale(1.05)';
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                if (index !== currentImageIndex) {
+                                                    (e.target as HTMLImageElement).style.borderColor = 'transparent';
+                                                }
+                                                (e.target as HTMLImageElement).style.transform = 'scale(1)';
+                                            }}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Product Details Section */}
+                            <div style={styles.detailsSection}>
+                                <div>
+                                    <h1 style={styles.productTitle}>{currentVariant.name}</h1>
+                                    <div style={styles.productPrice}>{currentVariant.price}</div>
+
+                                    <div style={styles.section}>
+                                        <h3 style={styles.sectionTitle}>Description</h3>
+                                        <p style={styles.description}>
+                                            {currentVariant.description}
+                                        </p>
+                                    </div>
+
+                                    <div style={styles.section}>
+                                        <h3 style={styles.sectionTitle}>Product Variants</h3>
+                                        <div style={styles.variantOptions}>
+                                            {productVariants.map((variant) => (
+                                                <div
+                                                    key={variant.id}
+                                                    onClick={() => handleVariantSelect(variant.id)}
+                                                    style={{
+                                                        ...styles.variantOption,
+                                                        ...(selectedVariant === variant.id ? styles.variantOptionActive : styles.variantOptionInactive)
+                                                    }}
+                                                    onMouseEnter={(e) => {
+                                                        if (selectedVariant !== variant.id) {
+                                                            (e.target as HTMLDivElement).style.backgroundColor = '#e5e5e5';
+                                                            (e.target as HTMLDivElement).style.borderColor = '#bc987e';
+                                                        }
+                                                    }}
+                                                    onMouseLeave={(e) => {
+                                                        if (selectedVariant !== variant.id) {
+                                                            (e.target as HTMLDivElement).style.backgroundColor = '#f5f5f5';
+                                                            (e.target as HTMLDivElement).style.borderColor = 'transparent';
+                                                        }
+                                                    }}
+                                                >
+                                                    {variant.name}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div style={styles.section}>
+                                        <h3 style={styles.sectionTitle}>Size</h3>
+                                        <div style={styles.sizeOptions}>
+                                            {currentVariant.sizeOptions.map((size) => (
+                                                <div
+                                                    key={size.id}
+                                                    onClick={() => handleSizeSelect(size.id)}
+                                                    style={{
+                                                        ...styles.sizeOption,
+                                                        ...(selectedSize === size.id ? styles.sizeOptionActive : styles.sizeOptionInactive)
+                                                    }}
+                                                    title={size.name}
+                                                    onMouseEnter={(e) => {
+                                                        if (selectedSize !== size.id) {
+                                                            (e.target as HTMLDivElement).style.borderColor = '#d5cfbf';
+                                                            (e.target as HTMLDivElement).style.backgroundColor = '#e5e5e5';
+                                                        }
+                                                    }}
+                                                    onMouseLeave={(e) => {
+                                                        if (selectedSize !== size.id) {
+                                                            (e.target as HTMLDivElement).style.borderColor = 'transparent';
+                                                            (e.target as HTMLDivElement).style.backgroundColor = '#f5f5f5';
+                                                        }
+                                                    }}
+                                                >
+                                                    {size.name}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div style={styles.section}>
+                                        <h3 style={styles.sectionTitle}>Color</h3>
+                                        <div style={styles.colorOptions}>
+                                            {currentVariant.colorOptions.map((color) => (
+                                                <div
+                                                    key={color.id}
+                                                    onClick={() => handleColorSelect(color.id)}
+                                                    style={{
+                                                        ...styles.colorOption,
+                                                        backgroundColor: color.value,
+                                                        ...(selectedColor === color.id ? styles.colorOptionActive : styles.colorOptionInactive)
+                                                    }}
+                                                    title={color.name}
+                                                    onMouseEnter={(e) => {
+                                                        if (selectedColor !== color.id) {
+                                                            (e.target as HTMLDivElement).style.borderColor = '#d5cfbf';
+                                                        }
+                                                        (e.target as HTMLDivElement).style.transform = 'scale(1.05)';
+                                                    }}
+                                                    onMouseLeave={(e) => {
+                                                        if (selectedColor !== color.id) {
+                                                            (e.target as HTMLDivElement).style.borderColor = 'transparent';
+                                                            (e.target as HTMLDivElement).style.transform = 'scale(1)';
+                                                        }
+                                                    }}
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div style={styles.section}>
+                                        <h3 style={styles.sectionTitle}>Quantity</h3>
+                                        <div style={styles.quantityControls}>
+                                            <button
+                                                style={styles.quantityBtn}
+                                                onClick={() => handleQuantityChange(quantity - 1)}
+                                                onMouseEnter={(e) => {
+                                                    (e.target as HTMLButtonElement).style.background = '#d5cfbf';
+                                                    (e.target as HTMLButtonElement).style.color = 'white';
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    (e.target as HTMLButtonElement).style.background = 'white';
+                                                    (e.target as HTMLButtonElement).style.color = '#333';
+                                                }}
+                                            >
+                                                −
+                                            </button>
+                                            <input
+                                                value={quantity}
+                                                onChange={(e) => handleQuantityChange(parseInt(e.target.value) || 1)}
+                                                style={styles.quantityInput}
+                                                min="1"
+                                                onFocus={(e) => {
+                                                    (e.target as HTMLInputElement).style.borderColor = '#bc987e';
+                                                }}
+                                                onBlur={(e) => {
+                                                    (e.target as HTMLInputElement).style.borderColor = '#d5cfbf';
+                                                }}
+                                            />
+                                            <button
+                                                style={styles.quantityBtn}
+                                                onClick={() => handleQuantityChange(quantity + 1)}
+                                                onMouseEnter={(e) => {
+                                                    (e.target as HTMLButtonElement).style.background = '#d5cfbf';
+                                                    (e.target as HTMLButtonElement).style.color = 'white';
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    (e.target as HTMLButtonElement).style.background = 'white';
+                                                    (e.target as HTMLButtonElement).style.color = '#333';
+                                                }}
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div style={styles.section}>
+                                        <div
+                                            onClick={() => handleAddToCart()}
+                                            style={{
+                                                ...styles.addCartButton,
+                                                // ...(selectedVariant === variant.id ? styles.variantOptionActive : styles.variantOptionInactive)
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                (e.target as HTMLDivElement).style.backgroundColor = '#bc987e';
+                                                (e.target as HTMLDivElement).style.borderColor = '#bc987e';
+
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                (e.target as HTMLDivElement).style.backgroundColor = '#dfbea6';
+                                                (e.target as HTMLDivElement).style.borderColor = '#dfbea6';
+                                            }}
+                                        >
+                                            Add To Cart
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -810,7 +812,66 @@ const ProductDetails: React.FC = () => {
                     </div>
                 </div>
             </div>
-        </div>
+            {isPreviewOpen && (
+                <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+                    <div className="relative max-w-4xl max-h-full">
+                        {/* Close button */}
+                        <button
+                            onClick={() => setIsPreviewOpen(false)}
+                            className="absolute top-4 right-4 text-white hover:text-gray-300 z-10"
+                            type="button"
+                        >
+                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+
+                        {/* Previous button */}
+                        <button
+                            onClick={() => handlePreviewNavigation(-1)}
+                            className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 z-10"
+                            type="button"
+                        >
+                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+
+                        {/* Next button */}
+                        <button
+                            onClick={() => handlePreviewNavigation(1)}
+                            className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 z-10"
+                            type="button"
+                        >
+                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+
+                        {/* Main preview image */}
+                        <img
+                            src={typeof currentImages[previewImageIndex] === 'string'
+                                ? currentImages[previewImageIndex] as string
+                                : (currentImages[previewImageIndex] as any)?.src || (currentImages[previewImageIndex] as any)?.url
+                            }
+                            alt={`Preview ${previewImageIndex + 1}`}
+                            className="max-w-full max-h-full object-contain rounded-lg"
+                        />
+
+                        {/* Image counter */}
+                        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white bg-black bg-opacity-50 px-3 py-1 rounded">
+                            {previewImageIndex + 1} / {currentImages.length}
+                        </div>
+                    </div>
+
+                    {/* Click outside to close */}
+                    <div
+                        className="absolute inset-0 -z-10"
+                        onClick={() => setIsPreviewOpen(false)}
+                    />
+                </div>
+            )}
+        </>
     )
 }
 

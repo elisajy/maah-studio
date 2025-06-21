@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useState } from "react";
 import "./BannerGallery.scss";
 
 const BannerGallery = () => {
@@ -61,11 +61,11 @@ const BannerGallery = () => {
     setTimeout(() => setIsAutoPlaying(true), 3000);
   };
 
-  const goToSlide = (index) => {
-    setIsAutoPlaying(false);
-    setCurrentSlide(index);
-    setTimeout(() => setIsAutoPlaying(true), 3000);
-  };
+  // const goToSlide = (index: React.SetStateAction<number>) => {
+  //   setIsAutoPlaying(false);
+  //   setCurrentSlide(index);
+  //   setTimeout(() => setIsAutoPlaying(true), 3000);
+  // };
 
   return (
     <div

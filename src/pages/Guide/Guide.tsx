@@ -1,6 +1,6 @@
+import { CheckCircleOutlined, CreditCardOutlined, FileDoneOutlined, SafetyOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons';
+import { Card, Steps, Tabs, Typography } from 'antd';
 import React from 'react';
-import { Tabs, Steps, Card, Typography, Divider } from 'antd';
-import { ShoppingCartOutlined, CreditCardOutlined, UserOutlined, SafetyOutlined, FileDoneOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import './Guide.scss';
 
 const { Title, Text, Paragraph } = Typography;
@@ -54,7 +54,7 @@ const Guide: React.FC = () => {
                                 direction="vertical"
                                 current={-1}
                                 className="order-steps"
-                                items={orderSteps.map((step, index) => ({
+                                items={orderSteps.map((step) => ({
                                     title: step.title,
                                     description: step.description,
                                     icon: step.icon,

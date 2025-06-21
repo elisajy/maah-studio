@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Upload, ShoppingCart, User, Mail, Phone, Tag, Receipt, CreditCard, Check, X } from 'lucide-react';
+import { Check, CreditCard, Receipt, ShoppingCart, Tag, Upload, User, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { useCart } from '../../components/Cart/CartContext';
 
 export default function CheckoutPage() {
@@ -31,7 +31,7 @@ export default function CheckoutPage() {
 
     // Calculate totals with voucher
     const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const tax = subtotal * 0.1; // 10% tax
+    // const tax = subtotal * 0.1; // 10% tax
 
     // Calculate discount
     let discount = 0;

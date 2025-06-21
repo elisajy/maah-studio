@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
-import { X, Trash2 } from 'lucide-react';
-import { useCart } from './CartContext';
-import './CartButton.scss';
-import './ShoppingCart.scss';
 import { Typography } from 'antd';
+import { Trash2, X } from 'lucide-react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './CartButton.scss';
+import { useCart } from './CartContext';
+import './ShoppingCart.scss';
 
 interface ShoppingCartComponentProps {
   isOpen: boolean;
   onClose: () => void;
 }
-const { Title, Text, Paragraph } = Typography;
+const { Title } = Typography;
 
 // Mock product data
 const mockProducts: any[] = [];
@@ -85,20 +85,20 @@ const ShoppingCartComponent: React.FC<ShoppingCartComponentProps> = ({ isOpen, o
     updateQuantity(id, quantity + 1);
   };
 
-  const handleWhatsAppCheckout = () => {
-    const message = cartItems.map(item =>
-      `*${item.name}* x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`
-    ).join('%0A');
+  // const handleWhatsAppCheckout = () => {
+  //   const message = cartItems.map(item =>
+  //     `*${item.name}* x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`
+  //   ).join('%0A');
 
-    const total = getTotalPrice().toFixed(2);
-    const whatsappMessage = `Hello, I'd like to order:%0A%0A${message}%0A%0A*Total: $${total}*%0A%0AThank you!`;
+  //   const total = getTotalPrice().toFixed(2);
+  //   const whatsappMessage = `Hello, I'd like to order:%0A%0A${message}%0A%0A*Total: $${total}*%0A%0AThank you!`;
 
-    // Replace with your actual WhatsApp number (include country code without +)
-    const phoneNumber = '601111660611'; // Change this to your actual number
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${whatsappMessage}`;
+  //   // Replace with your actual WhatsApp number (include country code without +)
+  //   const phoneNumber = '601111660611'; // Change this to your actual number
+  //   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${whatsappMessage}`;
 
-    window.open(whatsappUrl, '_blank');
-  };
+  //   window.open(whatsappUrl, '_blank');
+  // };
 
   const handleCheckout = () => {
     navigate(`/order-checkout`);

@@ -1,6 +1,6 @@
+import { ClockCircleOutlined, InstagramOutlined, MailOutlined, SyncOutlined, TruckOutlined } from '@ant-design/icons';
+import { Card, Col, Row, Space, Typography } from 'antd';
 import React from 'react';
-import { Card, Typography, Divider, Row, Col, Space } from 'antd';
-import { ClockCircleOutlined, TruckOutlined, SyncOutlined, MailOutlined, InstagramOutlined } from '@ant-design/icons';
 import './ShippingReturnPolicy.scss';
 
 const { Title, Text, Paragraph } = Typography;
